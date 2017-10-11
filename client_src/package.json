@@ -7,6 +7,7 @@
     "jquery": "^3.2.1",
     "pusher-js": "^4.2.1",
     "react": "^16.0.0",
+    "react-chat-bubble": "^0.8.6",
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.14",
     "sendbird": "^3.0.41"

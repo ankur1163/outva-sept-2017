@@ -37,9 +37,7 @@ module.exports = function(Meetups,pusher) {
         appId: "411599",
         key: "2cf1cc85bdc7ecb3de23",
         secret: "0d71c657eea516b33c85",
-        encrypted: false, // optional, defaults to false
-        host: 'HOST', // optional, defaults to api.pusherapp.com
-        port: 80, // optional, defaults to 80 for unencrypted and 443 for encrypted
+        
         cluster: 'ap2', // optional, if `host` is present, it will override the `cluster` option.
       });
 
