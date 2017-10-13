@@ -36,9 +36,16 @@ class Chat extends Component {
     console.log("this.pusher",pusher)
     var chatRoom = pusher.subscribe('messages'); */
     this.pusher = new Pusher("2cf1cc85bdc7ecb3de23",{
+       authEndpoint: 'http://localhost:3000/api/meetups/auth',
+
       cluster: 'ap2'
+
     });
-    this.chatRoom =this.pusher.subscribe('messages');
+    console.log("pusher socketid",this.pusher.connection);
+    var tg = this.pusher.connection;
+    var mg = tg.socket_id;
+    console.log("mg",mg)
+    this.chatRoom =this.pusher.subscribe('private-messages');
 
 
   }
