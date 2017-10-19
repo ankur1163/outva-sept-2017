@@ -2,8 +2,17 @@
 
 var loopback = require('loopback');
 var boot = require('loopback-boot');
+var bodyParser = require('body-parser');
+var multer = require('multer');
 
 var app = module.exports = loopback();
+
+//code for body parsing
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+//app.use(multer()); // for parsing multipart/form-data
+
+//code for body parsing ends
 
 app.start = function() {
   // start the web server

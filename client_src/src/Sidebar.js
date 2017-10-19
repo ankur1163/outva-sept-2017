@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import moxtra from './moxtra-logo.png'
+//import moxtra from './moxtra-logo.png'
 
 import './App.css';
 

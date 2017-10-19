@@ -74,8 +74,9 @@ module.exports = function(Meetups,pusher) {
 
           var textf = text.text;
           var timef = text.date;
+          console.log("entered in pusher route")
           console.log("text",textf,"username",username,"time",timef,"text.date",text.date)
-          pushertwo.trigger('messages', 'new_message', {
+          pushertwo.trigger('private-messages', 'new_message', {
              'text': textf,
              'username': username,
              'time': timef
@@ -92,9 +93,14 @@ module.exports = function(Meetups,pusher) {
           returns: {arg: 'greeting', type: 'string'}
     });
 
-  Meetups.auth = function(socketid,channel, cb) {
+  Meetups.auth = function(req, cb) {
 
-    console.log("socket id ",socketid,"channel ",channel)
+    console.log("entered auth route")
+    console.log("req",req.body)
+    var socketid = req.body.socket_id;
+    var channel = req.body.channel_name;
+
+    console.log("socketid is ",socketid,"channel ",channel)
 
      var pushertwo = new pusherone({
        appId: "411599",
@@ -103,16 +109,21 @@ module.exports = function(Meetups,pusher) {
 
        cluster: 'ap2', // optional, if `host` is present, it will override the `cluster` option.
       });
-      console.log("pushertwo is ",pushertwo);
- const auth = pushertwo.authenticate(socketid, channel);
- 
 
-  cb(null,auth);
-}
+     const auth = pushertwo.authenticate(socketid, channel);
+    console.log("auth is ",auth.auth);
+    var tosend = auth.auth;
+
+
+
+  cb(null,tosend);
+};
 
 Meetups.remoteMethod('auth', {
-      accepts: [{arg: 'socketid', type: 'string'},{arg: 'channel', type: 'object'}],
-      returns: {arg: 'greeting', type: 'string'}
+      accepts: [{ arg: 'req', type: 'object', http: function(ctx) {
+        return ctx.req;
+      } }],
+      returns: {arg: 'auth', type: 'string'}
 });
 
 

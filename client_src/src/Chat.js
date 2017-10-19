@@ -29,22 +29,17 @@ class Chat extends Component {
 
 
   componentWillMount(){
-    /*
-    const pusher = new Pusher("2cf1cc85bdc7ecb3de23",{
-      cluster: 'ap2'
-    });
-    console.log("this.pusher",pusher)
-    var chatRoom = pusher.subscribe('messages'); */
+
     this.pusher = new Pusher("2cf1cc85bdc7ecb3de23",{
        authEndpoint: 'http://localhost:3000/api/meetups/auth',
 
+
       cluster: 'ap2'
 
     });
-    console.log("pusher socketid",this.pusher.connection);
-    var tg = this.pusher.connection;
-    var mg = tg.socket_id;
-    console.log("mg",mg)
+
+ console.log("this.pusher",this.pusher);
+ console.log("this.pusher.subscribe",this.pusher.subscribe)
     this.chatRoom =this.pusher.subscribe('private-messages');
 
 
@@ -123,28 +118,7 @@ class Chat extends Component {
     console.log("message is ",message)
     message.image="https://i2.wp.com/charlottelifeandhome.com/wp-content/uploads/2015/06/Headshot-round.png"
 
-    /*
-    console.log("message a geya ",message)
-    var username = message.username;
-    var text = message.text;
-    var time = message.time;
-    var lm = this.state.messages;
-    console.log("lm is",lm,"")
-    var obj = {
-        "type" : 1,
-        "image": "https://i2.wp.com/charlottelifeandhome.com/wp-content/uploads/2015/06/Headshot-round.png",
-        "text": text
 
-    };
-
-    var newobj = lm.push({
-        "type" : 1,
-        "image": "https://i2.wp.com/charlottelifeandhome.com/wp-content/uploads/2015/06/Headshot-round.png",
-        "text": text
-
-    })
-    console.log("newobj is ",newobj)
-    */
     this.setState({messages: this.state.messages.concat(message)})
   }, this);
 
@@ -155,7 +129,7 @@ class Chat extends Component {
     var usch = this.usch.bind(this)
     return (
       <div className="nestedchat">
-      <h2>upper area</h2>
+      
         <div className="chatarea">
           <ChatBubble messages = {this.state.messages} />
         </div>
