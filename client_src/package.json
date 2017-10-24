@@ -13,8 +13,14 @@
     "react-date-picker": "^6.2.0",
     "react-dates": "^13.0.6",
     "react-dom": "^16.0.0",
+    "react-dropzone": "^4.2.1",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14",
+    "react-select-popover": "^0.1.1",
     "react-tabs": "^2.1.0",
+    "react-tag-autocomplete": "^5.4.1",
+    "react-tagsinput": "^3.19.0",
+    "semantic-ui-react": "^0.75.1",
     "sendbird": "^3.0.41"
   },
   "scripts": {

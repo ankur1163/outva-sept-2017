@@ -1,5 +1,6 @@
 'use strict';
 var pusherone = require('pusher');
+var paypal = require('paypal-rest-sdk')
 
 
 
@@ -11,6 +12,8 @@ module.exports = function(Meetups,pusher) {
       var OPEN_HOUR = 6;
       var CLOSE_HOUR = 20;
       console.log('Current hour is %d', currentHour);
+      console.log("paypl is",paypal)
+      console.log("ends")
       var response;
       if (currentHour >= OPEN_HOUR && currentHour < CLOSE_HOUR) {
         response = 'We are open yeah!!! for business.';
@@ -37,6 +40,7 @@ module.exports = function(Meetups,pusher) {
         var OPEN_HOUR = 6;
         var CLOSE_HOUR = 20;
         console.log('Current hour is %d', currentHour);
+        console.log("paypal is ",paypal)
         var response;
         if (currentHour >= OPEN_HOUR && currentHour < CLOSE_HOUR) {
           response = 'We are open yeah!!! for business.';

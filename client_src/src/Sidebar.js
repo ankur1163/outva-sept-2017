@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 //import moxtra from './moxtra-logo.png'
 
@@ -22,26 +23,24 @@ class Sidebar extends Component {
           <img  width="144px" src="https://p13.zdassets.com/hc/settings_assets/1174603/200346447/6auSHeGEOYcjY1cw8CPSHA-moxtra-logo.png" alt="logo" />
 
          </div>
+
          <div>
-           <h4>TimeLine</h4>
+           <Link to="/contacts"><h4>Contacts</h4></Link>
          </div>
          <div>
-            <h4>Categories</h4>
+            <Link to="/mytodo"><h4>My to do</h4></Link>
          </div>
          <div>
-           <h4>Contacts</h4>
+           <Link to="/favorites"><h4>Favorites</h4></Link>
          </div>
          <div>
-            <h4>My to do</h4>
+            <Link to="/mention"><h4>Mention</h4></Link>
          </div>
          <div>
-           <h4>Favorites</h4>
+            <Link to="/profile"><h4>Profile</h4></Link>
          </div>
          <div>
-            <h4>Mention</h4>
-         </div>
-         <div>
-            <h4>Profile</h4>
+            <Link to="/buy"><h4>Buy</h4></Link>
          </div>
       </div>
     )

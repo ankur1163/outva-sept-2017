@@ -4,6 +4,7 @@ var loopback = require('loopback');
 var boot = require('loopback-boot');
 var bodyParser = require('body-parser');
 var multer = require('multer');
+var paypal  = require('paypal-rest-sdk')
 
 var app = module.exports = loopback();
 

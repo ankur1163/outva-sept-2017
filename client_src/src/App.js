@@ -8,41 +8,39 @@ import Chat from './Chat.js'
 import Sidebar from './Sidebar'
 import Projects from './Projects'
 import Todo from './Todo.js'
+import { BrowserRouter, Route, Link } from 'react-router-dom'
+import Apphome from './Apphome.js'
+import Contacts from './Contacts'
+import Mytodo from './Mytodo';
+import Favorites from './Favorites';
+import Mention from './Mention';
+import Profile from './Profile';
+import Buy from './Buy.js'
 
 
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state={cchat:true}
-  }
 
-togglebutton(){
-  this.setState({cchat:!this.state.cchat})
-}
 
 
 
   render() {
-    var togglebutton = this.togglebutton.bind(this);
+
 
     return (
-      <div className="wrapper">
-       <div className="sidebar">
-          <Sidebar />
-       </div>
-        <div className="project">
-          <Projects/>
-        </div>
 
-        <div className="chat">
-         <h2 onClick={togglebutton}> Toggle chat </h2>
-        {this.state.cchat?<Chat/>:<Todo/>}
-
-
-        </div>
+      <BrowserRouter>
+      <div>
+        <Route path="/" exact component ={Apphome} />
+        <Route path="/contacts" exact component ={Contacts} />
+        <Route path="/mytodo" exact component ={Mytodo} />
+        <Route path="/favorites" exact component ={Favorites} />
+        <Route path="/mention" exact component ={Mention} />
+        <Route path="/profile" exact component ={Profile} />
+        <Route path="/buy" exact component ={Buy} />
 
       </div>
+        </BrowserRouter>
     )
 
 
