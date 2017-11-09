@@ -29,6 +29,8 @@ class Chat extends Component {
 
 
   componentWillMount(){
+    console.log("this.props.room",this.props.rooms);
+    console.log("this.props.chat",this.props.chat);
 
     this.pusher = new Pusher("2cf1cc85bdc7ecb3de23",{
        authEndpoint: 'http://localhost:3000/api/meetups/auth',
@@ -129,16 +131,20 @@ class Chat extends Component {
     var usch = this.usch.bind(this)
     return (
       <div className="nestedchat">
-      
+      <div>
+
+      </div>
+
         <div className="chatarea">
           <ChatBubble messages = {this.state.messages} />
         </div>
       <div>
 
 
-      <p>username</p><input type="text" onChange={usch}/>
-      <p>message</p><input type="text" onChange={txch}/>
-      <button onClick={sm}>click here</button>
+      <p>username<input type="text" onChange={usch}/>
+      message<input type="text" onChange={txch}/>
+      <button onClick={sm}>click here</button></p>
+
        </div>
       </div>
     );

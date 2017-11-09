@@ -20,7 +20,7 @@ class Favorites extends Component {
   render() {
 
     var tr = this.state.favorites.map(function(item,index){
-      return <div><p>Name:{item.name}</p><img src={item.imageurl} style={{width:"50px",height:"50px"}} /><p>Text :{item.text}</p><hr/></div>
+      return <div><p>Name:{item.name}</p><img alt="great" src={item.imageurl} style={{width:"50px",height:"50px"}} /><p>Text :{item.text}</p><hr/></div>
     })
 
     return (

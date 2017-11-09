@@ -38,7 +38,7 @@ class Profile extends Component {
 
         <div className="chat">
          <h2>Profile</h2>
-         <img style={{borderRadius:"50%",height:"131px",width:"131px",display:"block",alignItems:"center"}} src={this.state.imageurl} w />
+         <img alt="flower" style={{borderRadius:"50%",height:"131px",width:"131px",display:"block",alignItems:"center"}} src={this.state.imageurl} w />
          <br/> <div> <p>Name : {this.state.name}</p><br/></div>
           <p>Email: {this.state.email}</p>
           <Modal trigger={<Button>Show Modal</Button>}>

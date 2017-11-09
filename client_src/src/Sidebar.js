@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {fetchWeather} from './actions/index.js'
 
 //import moxtra from './moxtra-logo.png'
 
@@ -8,14 +11,26 @@ import './App.css';
 
 
 
-
+//If this.props.books is falsy, javascript knows that it doesn't have to test the expression any further, because when you have a condition
+//with && and your first expression is already falsy, the expression cannot turn to truthy anymore
 class Sidebar extends Component {
+  constructor(props){
+    super(props)
+    this.state={name:"ankur"}
+  }
 
 
 
-
+   buttonclicked(){
+     console.log("button clicked");
+     console.log("this.props ",this.props)
+     this.props.fetchWeather()
+   }
 
   render() {
+    var buttonclicked= this.buttonclicked.bind(this);
+    var td =  "megha";
+    console.log("this.props",this.props)
 
     return (
       <div>
@@ -42,6 +57,7 @@ class Sidebar extends Component {
          <div>
             <Link to="/buy"><h4>Buy</h4></Link>
          </div>
+         <button onClick={buttonclicked}>its amazing {this.props.books && this.props.books[0] && this.props.books[0].name}</button>
       </div>
     )
 
@@ -49,4 +65,13 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar;
+function mapStateToProps(state){
+  return {
+    books:state.books
+  }
+}
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({fetchWeather},dispatch)
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Sidebar)

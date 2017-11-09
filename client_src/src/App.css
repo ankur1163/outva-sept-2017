@@ -1,10 +1,67 @@
+body{
+  font-family: 'Roboto', sans-serif;
+}
+
+p{
+  font-family: 'Roboto', sans-serif;
+}
+h4{
+  font-family: 'Roboto', sans-serif;
+}
 .wrapper{
  background-color: #e6e6eb;
  display:grid;
- grid-template-columns: 12% 25% 62%;
+ grid-template-columns: 12% 87%;
  grid-column-gap:10px;
- height:100vh
+ height:100vh;
 
+
+}
+.projectslist{
+  overflowX:hidden;
+  overflow:scroll;
+  whiteSpace : nowrap;
+  display:grid;
+  grid-template-columns: 100%;
+  height:90vh
+}
+.pcs{
+  display:grid;
+  grid-template-columns: 25% 75%;
+  background-color: white;
+  grid-column-gap:10px;
+  height:100vh;
+
+}
+
+.topprojectbar{
+  display:grid;
+  grid-template-columns: 25% 50% 25%;
+  height:68px;
+  border-bottom-style: solid;
+  border-bottom-width: 0.5px;
+  border-bottom-color: silver;
+  text-align:center;
+
+}
+.projectssection{
+  display:grid;
+  height:80px;
+  grid-gap:10px;
+  align-items: center;
+  margin-left: 10px;
+  border-bottom-style: solid;
+  border-bottom-width: 0.5px;
+  border-bottom-color: whitesmoke;
+  grid-template-columns: 30% 70%;
+
+}
+.simpleproject{
+  background-color: white;
+
+}
+.colorproject{
+  background-color: whitesmoke;
 }
 
 .sidebar{
@@ -12,11 +69,11 @@
 }
 
 .project{
-  background-color: pink
+  background-color: white;
 }
 
 .chat{
-  background-color: lightgreen
+  background-color: white;
 }
 
 .wrappersidebar{
@@ -27,8 +84,13 @@
 .nestedchat{
   display:grid;
 
-  grid-template-rows:20vh 60vh 10vh;
+
+  grid-template-rows:15vh 75vh  10vh;
 }
 .chatarea{
-  overflow:auto
+  overflow:auto;
+  border-top-style: solid;
+  border-top-width: 0.5px;
+  border-top-color: silver;
+  background-color: white;
 }
