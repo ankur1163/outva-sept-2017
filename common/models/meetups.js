@@ -2,7 +2,7 @@
 var pusherone = require('pusher');
 var paypal = require('paypal-rest-sdk')
 
-
+var paymenturl ;
 
 module.exports = function(Meetups,pusher) {
 
@@ -123,11 +123,137 @@ module.exports = function(Meetups,pusher) {
   cb(null,tosend);
 };
 
+
 Meetups.remoteMethod('auth', {
       accepts: [{ arg: 'req', type: 'object', http: function(ctx) {
         return ctx.req;
       } }],
       returns: {arg: 'auth', type: 'string'}
+});
+
+//pay route starts
+
+
+Meetups.pay = function(cost, cb) {
+
+
+  //var paypal = Meetups.app.models.Paypal;
+  console.log("cost is ",cost)
+
+  console.log("entered pay paypal route")
+  paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  'client_id': 'ATgXK7z8Xvjv17m8K-2ypy2XBbAjD9A_57FmLWbByh8WEFqqdmTF0lr9bbL4nwKFDTFcO_NN7yQGt_tl',
+  'client_secret': 'EKSkiAyzMUDqe0iZfR3e3uqRToclRzJiZ8HwoycI0hBd_qKuRpxMJQRF_MBKocFph7smnndCspRRCi4v'
+});
+
+  var create_payment_json = {
+    "intent": "sale",
+    "payer": {
+        "payment_method": "paypal"
+    },
+    "redirect_urls": {
+        "return_url": "http://localhost:3001/success",
+        "cancel_url": "http://localhost:3001/cancel"
+    },
+    "transactions": [{
+        "item_list": {
+            "items": [{
+                "name": "Global va Hours",
+                "sku": "1234",
+                "price": cost,
+                "currency": "USD",
+                "quantity": 1
+            }]
+        },
+        "amount": {
+            "currency": "USD",
+            "total": cost
+        },
+        "description": "Pay for globalva Hours"
+    }]
+};
+
+paypal.payment.create(create_payment_json, function (error, payment) {
+    if (error) {
+        throw error;
+    } else {
+        console.log("Create Payment Response");
+        for(var i =0;i<payment.links.length;i++){
+          if(payment.links[i].rel==="approval_url"){
+              console.log("cb is ",cb)
+              paymenturl = payment.links[i].href;
+              cb(null,paymenturl);
+          }
+        }
+    }
+});
+
+
+};
+
+Meetups.remoteMethod('pay', {
+      accepts: [{ arg: 'cost', type: 'Number',required:true}],
+      returns: {arg: 'pay', type: 'string'}
+});
+//trying my hands in remote hooks
+
+/*
+Meetups.afterRemote('pay', function(context, customer, next) {
+  console.log("this is great after remote")
+  console.log("paymenturl",paymenturl)
+  var res = context.res; //this is the same response object you get in Express
+  res.redirect(paymenturl)
+  console.log("this is done")
+
+})
+
+*/
+
+//pay route ends
+
+
+//successcredithours route starts
+Meetups.successcredithours = function(payerid,paymentid, cb) {
+  console.log("entered successcredithours ")
+  console.log("paymentid ",paymentid);
+  console.log("payerid ",payerid);
+  var paymentId =paymentid;
+  var payerId = payerid;
+
+
+  const execute_payment_json={
+    "payer_id":payerId,
+      "transactions":[{
+        "amount":{
+          "currency":"USD",
+          "total":"14.00"
+        }
+      }]
+
+  };
+
+  paypal.payment.execute(paymentId,execute_payment_json,function(error,payment){
+    if(error){
+      console.log(error.response);
+      var tosend = error.response
+      cb(null,tosend);
+      throw error;
+    }else{
+      console.log("get payment response");
+      var tosend = payment
+      cb(null,tosend)
+    }
+  })
+
+
+
+};
+
+
+Meetups.remoteMethod('successcredithours', {
+    accepts: [{ arg: 'payerid', type: 'string',required:true },{ arg: 'paymentid', type: 'string',required:true }],
+    returns: {arg: 'auth', type: 'string'}
 });
 
 

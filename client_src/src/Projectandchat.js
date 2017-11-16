@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {fetchprojectlist} from './actions/index.js'
+import {fetchWeather} from './actions/index.js'
+import {addProjectName} from './actions/index.js'
 
 
 import './App.css';
@@ -17,100 +22,45 @@ import TextField from 'material-ui/TextField';
 class Projectandchatsection extends Component {
   constructor(props) {
     super(props);
-    this.state={setcolor:false,hours:2,searchterm:"",dropdownvalue:1,dropdownvaluetwo:1,rooms:["private-messages","project2","project3","project4","project5",
-    "project6","project7","project8","project9"],chatrooms:[{key:1,color:false,name:"private-messages"},
-    {key:2,color:false,name:"project2"},
-    {key:3,color:false,name:"project3"},
-    {key:4,color:false,name:"project 4"},
-    {key:5,color:false,name:"project 5"},
-    {key:6,color:false,name:"project 6"},
-      {key:7,color:false,name:"project 7"},
-    {key:8,color:false,name:"project 8"},
-    {key:9,color:false,name:"project 9"}]
-    ,projectchat:[{projectname:"private-messages",
-    chatmessages:[{username:"ankur",message:"whatsup"},{username:"ankur",message:"kya hal hai"}]},
-    {projectname:"project2",
-    chatmessages:[{username:"ankur",message:"whatsup"},{username:"ankur",message:"kya hal hai"}]} ]}
 
+    this.state={searchterm:"",dropdownvalue:1,dropdownvaluetwo:1,term:""}
 
+  }
+
+  componentWillMount(){
+    this.props.fetchprojectlist();
+    console.log("this.props.projectlist ",this.props.projectlist)
   }
 
   projectclick(){
     console.log("project clicked")
-  }
+  };
   handledropdownChange = (event, index, value) => this.setState({dropdownvalue:value});
   handledropdowntwoChange = (event, index, value) => this.setState({dropdownvaluetwo:value});
 
   handleColor(e){
-
-
-    var key = e.currentTarget.getAttribute("data-key");
-    key = parseInt(key)
-    var ky = this.state.chatrooms;
-    var classes ;
-
-
-    for(var i =0;i<ky.length;i++){
-
-      if(ky[i].key===key){
-
-        if(ky[i].color==true){
-
-          ky[i].color=false
-        }
-        else{
-
-          ky[i].color=true;
-        }
-
-
-
-      }
-      else{
-        if(ky[i].color==true){
-
-          ky[i].color=false
-        }
-
-      }
-
-    }
-
-    this.setState({chatrooms:ky});
-
+    console.log("handle color")
 
 
   }
 
 
   render() {
+    console.log("rendered again ")
+
     var projectclick =this.projectclick.bind(this);
     var handleColor = this.handleColor.bind(this);
-     var projectr = this.state.rooms.map(function(item,index){
+    var classes =  "colorproject projectssection"
+     var lr = null;
+    if(this.props.projectlist && this.props.projectlist.chatrooms && this.props.projectlist.chatrooms[0] && this.props.projectlist.chatrooms[0].name){
+       console.log("came again ",this.props.projectlist.chatrooms)
+      var lr = this.props.projectlist.chatrooms.map(function(item,index){
 
-          return (<Projectsnew onClick={projectclick} key={index} room={item} /> )
-     })
-
-     var lr = this.state.chatrooms.map(function(item,index){
-
-
-       var classes = item.color ? "colorproject projectssection":"simpleproject projectssection";
-       return (
-         <div  key={item.key} data-key={item.key} onClick={handleColor} className={classes}>
-           <div>
-              <img src="https://rsc002.moxtra.com/board/Bc2JZUzFEWX2sYsLUJ1QRJ0/4?access_token=ZMk0MgAAAV9nNhHjAACowFVTMmdMcVUyaVNDS2tMZkY3Um9KcGxBIAAAAAFUNzYwXzBQWERPWUNSbkN2bjZzVTFHWCAgICAgICAgICAg&sessionid=mxweb-42689df9-1f38-4d4b-92b0-f8b22ada02f9"
-              width="50px" height="50px" />
-           </div>
-           <div>
-             <p style={{fontWeight:"bold"}}>{item.name}</p>
-           </div>
+         return (<li>{item.name}   </li>)
+      })
+    }
 
 
-         </div>
-
-
-       )
-     })
 
     return (
       <div>
@@ -144,7 +94,17 @@ class Projectandchatsection extends Component {
                         </div>
                       </div>
                       <div className="projectslist" >
-                       {projectr}
+
+                       <input type="text" value={this.state.term} onChange={(event)=>this.setState({term:event.target.value})}/>
+                       <button onClick={()=>this.props.addProjectName(this.state.term)}> add</button>
+
+                       <br/>
+                       {this.props.projectlist && this.props.projectlist.chatrooms && this.props.projectlist.chatrooms[0] && this.props.projectlist.chatrooms[0].name &&
+                          lr
+                          }
+
+
+
                       </div>
                   </div>
               <div>
@@ -158,4 +118,15 @@ class Projectandchatsection extends Component {
   }
 }
 
-export default Projectandchatsection;
+function mapStateToProps(state){
+  console.log("state here ",state)
+  return {
+    projectlist:state.projectlist,
+    books:state.books
+  }
+}
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({fetchprojectlist,fetchWeather,addProjectName},dispatch)
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Projectandchatsection)
