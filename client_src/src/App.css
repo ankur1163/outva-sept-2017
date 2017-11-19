@@ -8,6 +8,20 @@ p{
 h4{
   font-family: 'Roboto', sans-serif;
 }
+
+.projectbox2{
+  background-color: white;
+  color: rgb(100, 100, 102);
+  cursor: pointer;
+  height:82px;
+  border-bottom: 1px solid rgb(100, 100, 102);
+
+
+
+  text-decoration: none solid rgb(100, 100, 102);
+
+
+}
 .wrapper{
  background-color: #e6e6eb;
  display:grid;

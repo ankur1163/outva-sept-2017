@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import CKEditor from "react-ckeditor-component";
 
 import axios from 'axios';
 
 import Pusher from 'pusher-js'
 import ChatBubble from 'react-chat-bubble';
+import Todosingle from './Todosingle';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {addSelectedRoom} from './actions/index.js'
 
 import './App.css';
 
@@ -14,7 +19,7 @@ class Chat extends Component {
   constructor(props) {
     super(props);
 
-    this.state={"username":"ankur","messages":[{
+    this.state={content: 'content',"username":"ankur","messages":[{
         "type" : 0,
         "image": "https://i2.wp.com/charlottelifeandhome.com/wp-content/uploads/2015/06/Headshot-round.png",
         "text": "Hello! Good Morning!,how are you ankur",
@@ -24,13 +29,12 @@ class Chat extends Component {
         "image": "https://static1.squarespace.com/static/53a7236ee4b0370cf58d8c89/5478ceefe4b0542adccf11df/5478ceeee4b0542adccf11c4/1417203462225/Will-headshot-round-small.jpg",
         "text": "Hello! Good Afternoon!",
         "date":"Wed Oct 11 2017 11:32:19 GMT+0530 (IST)"
-    }],"pusher":"","message":""}
+    }],"pusher":"","message":"","selectoption":null}
   }
 
 
   componentWillMount(){
-    console.log("this.props.room",this.props.rooms);
-    console.log("this.props.chat",this.props.chat);
+
 
     this.pusher = new Pusher("2cf1cc85bdc7ecb3de23",{
        authEndpoint: 'http://localhost:3000/api/meetups/auth',
@@ -40,12 +44,17 @@ class Chat extends Component {
 
     });
 
- console.log("this.pusher",this.pusher);
- console.log("this.pusher.subscribe",this.pusher.subscribe)
+
     this.chatRoom =this.pusher.subscribe('private-messages');
 
 
   }
+
+  updateContent(newContent) {
+        this.setState({
+            content: newContent
+        })
+    }
 
 
   sm(e){
@@ -69,10 +78,10 @@ class Chat extends Component {
    time: new Date()
   })
   .then(function (response) {
-    console.log("response back",response.data);
+
   })
   .catch(function (error) {
-    console.log(error);
+
   });
 
 
@@ -82,20 +91,43 @@ class Chat extends Component {
 
     var tx = e.target.value;
     this.setState({"message":tx})
-    console.log("tx",tx)
+
 
   }
 
   usch(e){
-    console.log(e.target.value)
+
     this.setState({"username":e.target.value})
 
   }
+  selectoption(e){
 
+    var selectoption2 = e.target.getAttribute('name')
+
+    this.setState({selectoption:selectoption2})
+
+  }
+
+
+  onChange(evt){
+
+     var newContent = evt.editor.getData();
+     this.setState({
+       content: newContent
+     })
+   }
+
+   onBlur(evt){
+
+   }
+
+   afterPaste(evt){
+
+   }
   componentDidMount(){
 
     var text = "message a geya"
-    console.log("date is ",new Date())
+
 
     var message = {
    username: "ankur1",
@@ -110,14 +142,14 @@ class Chat extends Component {
    date: new Date()
   })
   .then(function (response) {
-    console.log("data is here",response.data);
+
   })
   .catch(function (error) {
-    console.log(error);
+
   });
-  console.log("this.chatroom",this.chatroom)
+
   this.chatRoom.bind('new_message', function(message){
-    console.log("message is ",message)
+
     message.image="https://i2.wp.com/charlottelifeandhome.com/wp-content/uploads/2015/06/Headshot-round.png"
 
 
@@ -126,29 +158,91 @@ class Chat extends Component {
 
   }
   render() {
+     console.log("this.props ",this.props)
+     {this.props.selectedroom ? console.log("this.props.  notepad",this.props.selectedroom.notepad) : null}
+
+    var selectoption=this.selectoption.bind(this);
+    var updateContent = this.updateContent.bind(this);
     var sm = this.sm.bind(this)
     var txch = this.txch.bind(this)
     var usch = this.usch.bind(this)
+    var onChange = this.onChange.bind(this);
+    var onBlur = this.onBlur.bind(this);
+    var afterPaste = this.afterPaste.bind(this);
     return (
       <div className="nestedchat">
-      <div>
-
-      </div>
-
-        <div className="chatarea">
-          <ChatBubble messages = {this.state.messages} />
+        <div>
+           <button name="chat" onClick={selectoption}> chat </button>
+           <button name="To do" onClick={selectoption}> To do </button>
+           <button name="Notepad" onClick={selectoption}>Notepad</button>
         </div>
-      <div>
+
+          <div className="chatarea">
+           {this.props.selectedroom  ? this.props.selectedroom.name:null}
+           {this.props.selectedroom ? this.props.selectedroom.notepad : null}
 
 
-      <p>username<input type="text" onChange={usch}/>
-      message<input type="text" onChange={txch}/>
-      <button onClick={sm}>click here</button></p>
+          {this.props.selectedroom && this.state.selectoption==="chat" && this.state.selectoption!=="To do" && this.state.selectoption!=="Notepad"
+           ? <ChatBubble messages = {this.state.messages} /> : null}
+           {this.state.selectoption==="To do" && this.state.selectoption!=="chat" && this.state.selectoption!=="Notepad"
+            ? <Todosingle/>: null}
+            {this.props.selectedroom  && this.state.selectoption==="Notepad" && this.state.selectoption!=="chat" &&
+            this.state.selectoption!=="To do"
+             ?  <CKEditor
+              activeClass="p10"
+              content={this.props.selectedroom.notepad}
+              events={{
+                "blur": onBlur,
+                "afterPaste": afterPaste,
+                "change": onChange
+              }}
+             />   : null}
 
-       </div>
+
+
+          </div>
+        <div>
+          <p>username<input type="text" onChange={usch}/>
+          message<input type="text" onChange={txch}/>
+          <button onClick={sm}>click here</button></p>
+
+         </div>
       </div>
     );
   }
 }
 
-export default Chat;
+function mapStateToProps(state){
+
+  const projectlist=state.projectlist;
+  const selectedroom = state.projectlist.selectedroom;
+
+  if(state.projectlist.selectedroom!==null){
+
+    for(var i =0;i<state.projectlist.chatrooms.length;i++){
+
+         if(state.projectlist.chatrooms[i].name===selectedroom){
+            console.log("coming props ",state.projectlist.chatrooms[i])
+           return {
+             selectedroom:state.projectlist.chatrooms[i],
+             allrooms:state.projectlist
+
+
+           }
+         }
+    }
+
+  }
+
+  else{
+       selectedroom:null
+  }
+
+
+
+}
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({addSelectedRoom},dispatch)
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Chat)

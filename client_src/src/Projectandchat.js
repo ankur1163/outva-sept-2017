@@ -4,6 +4,9 @@ import {bindActionCreators} from 'redux';
 import {fetchprojectlist} from './actions/index.js'
 import {fetchWeather} from './actions/index.js'
 import {addProjectName} from './actions/index.js'
+import {addSelectedRoom} from './actions/index.js'
+import CKEditor from "react-ckeditor-component";
+
 
 
 import './App.css';
@@ -43,22 +46,42 @@ class Projectandchatsection extends Component {
 
 
   }
+  projectboxclicked(e){
+    console.log("clicked")
+
+    console.log("e.name ",e.target.getAttribute('name'))
+    this.props.addSelectedRoom(e.target.getAttribute('name'))
+  }
+  addnewproject(e){
+    console.log("this is great");
+
+    if(this.state.term!==""){
+      this.props.addProjectName(this.state.term);
+    }
+
+     this.setState({term:""})
+  }
 
 
   render() {
     console.log("rendered again ")
+    
 
     var projectclick =this.projectclick.bind(this);
     var handleColor = this.handleColor.bind(this);
-    var classes =  "colorproject projectssection"
+    var classes =  "colorproject projectssection";
+    var projectboxclicked = this.projectboxclicked.bind(this)
+    var addnewproject= this.addnewproject.bind(this);
      var lr = null;
     if(this.props.projectlist && this.props.projectlist.chatrooms && this.props.projectlist.chatrooms[0] && this.props.projectlist.chatrooms[0].name){
        console.log("came again ",this.props.projectlist.chatrooms)
       var lr = this.props.projectlist.chatrooms.map(function(item,index){
 
-         return (<li>{item.name}   </li>)
+         return (<div name={item.name} onClick={projectboxclicked} class="projectbox2">{item.name}   </div>)
       })
     }
+
+    console.log("this.props.projectlist.selectedroom",this.props.projectlist.selectedroom)
 
 
 
@@ -96,10 +119,11 @@ class Projectandchatsection extends Component {
                       <div className="projectslist" >
 
                        <input type="text" value={this.state.term} onChange={(event)=>this.setState({term:event.target.value})}/>
-                       <button onClick={()=>this.props.addProjectName(this.state.term)}> add</button>
+                       <button onClick={addnewproject}> add</button>
 
-                       <br/>
+
                        {this.props.projectlist && this.props.projectlist.chatrooms && this.props.projectlist.chatrooms[0] && this.props.projectlist.chatrooms[0].name &&
+
                           lr
                           }
 
@@ -108,7 +132,7 @@ class Projectandchatsection extends Component {
                       </div>
                   </div>
               <div>
-                <Chat rooms={this.state.projectnames} chat={this.state.projectchat}/>
+                <Chat selectedroom={this.props.projectlist.selectedroom } rooms={this.state.projectnames} chat={this.state.projectchat}/>
               </div>
           </div>
       </div>
@@ -126,7 +150,7 @@ function mapStateToProps(state){
   }
 }
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({fetchprojectlist,fetchWeather,addProjectName},dispatch)
+    return bindActionCreators({fetchprojectlist,fetchWeather,addProjectName,addSelectedRoom},dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Projectandchatsection)
