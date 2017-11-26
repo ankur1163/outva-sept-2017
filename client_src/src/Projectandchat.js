@@ -32,28 +32,28 @@ class Projectandchatsection extends Component {
 
   componentWillMount(){
     this.props.fetchprojectlist();
-    console.log("this.props.projectlist ",this.props.projectlist)
+
   }
 
   projectclick(){
-    console.log("project clicked")
+
   };
   handledropdownChange = (event, index, value) => this.setState({dropdownvalue:value});
   handledropdowntwoChange = (event, index, value) => this.setState({dropdownvaluetwo:value});
 
   handleColor(e){
-    console.log("handle color")
+
 
 
   }
   projectboxclicked(e){
-    console.log("clicked")
 
-    console.log("e.name ",e.target.getAttribute('name'))
+    console.log("e.target.getAttribute('name')",e.target.getAttribute('name'))
+
     this.props.addSelectedRoom(e.target.getAttribute('name'))
   }
   addnewproject(e){
-    console.log("this is great");
+
 
     if(this.state.term!==""){
       this.props.addProjectName(this.state.term);
@@ -64,8 +64,8 @@ class Projectandchatsection extends Component {
 
 
   render() {
-    console.log("rendered again ")
-    
+
+
 
     var projectclick =this.projectclick.bind(this);
     var handleColor = this.handleColor.bind(this);
@@ -73,15 +73,19 @@ class Projectandchatsection extends Component {
     var projectboxclicked = this.projectboxclicked.bind(this)
     var addnewproject= this.addnewproject.bind(this);
      var lr = null;
+     var gr = ["<div></div>","<div></div>"]
     if(this.props.projectlist && this.props.projectlist.chatrooms && this.props.projectlist.chatrooms[0] && this.props.projectlist.chatrooms[0].name){
-       console.log("came again ",this.props.projectlist.chatrooms)
+
       var lr = this.props.projectlist.chatrooms.map(function(item,index){
 
-         return (<div name={item.name} onClick={projectboxclicked} class="projectbox2">{item.name}   </div>)
+         return (<div key={item.name} name={item.name} onClick={projectboxclicked} className="projectbox2">{item.name}
+           </div>)
       })
     }
 
-    console.log("this.props.projectlist.selectedroom",this.props.projectlist.selectedroom)
+    console.log("lr ",lr)
+    console.log("this.props.selectedroom",this.props.selectedroom);
+    console.log("this.props",this.props);
 
 
 
@@ -91,6 +95,7 @@ class Projectandchatsection extends Component {
                 <div>
                     <div className="topprojectbar">
                           <div>
+                          {console.log("entered")}
                               <MuiThemeProvider>
                                 <TextField type ="text" style ={{width:"50px"}} value ={this.state.searchterm} onChange ={(e) =>this.setState({searchterm:e.target.value})}/>
                               </MuiThemeProvider>
@@ -132,7 +137,7 @@ class Projectandchatsection extends Component {
                       </div>
                   </div>
               <div>
-                <Chat selectedroom={this.props.projectlist.selectedroom } rooms={this.state.projectnames} chat={this.state.projectchat}/>
+                {this.props.projectlist && this.props.projectlist.selectedroom ?<Chat />:<p>nothing is </p>}
               </div>
           </div>
       </div>
@@ -143,14 +148,43 @@ class Projectandchatsection extends Component {
 }
 
 function mapStateToProps(state){
-  console.log("state here ",state)
-  return {
-    projectlist:state.projectlist,
-    books:state.books
+
+
+  const projectlist=state.projectlist;
+  const selectedroom = state.projectlist.selectedroom;
+  console.log("state.projectlist.selectedroom ",state.projectlist.selectedroom)
+
+  if(state.projectlist.chatrooms && state.projectlist.chatrooms[0] != null){
+
+    console.log("correct entered")
+    for(var i =0;i<state.projectlist.chatrooms.length;i++){
+
+         if(state.projectlist.chatrooms[i].name===selectedroom){
+
+           return {
+
+             projectlist:state.projectlist
+
+
+           }
+
+         }
+         else{
+           return {
+             projectlist:state.projectlist
+           }
+         }
+    }
+
+  }
+
+  else{
+    console.log("wron entered")
+       selectedroom:null
   }
 }
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({fetchprojectlist,fetchWeather,addProjectName,addSelectedRoom},dispatch)
+    return bindActionCreators({fetchprojectlist,fetchWeather,addSelectedRoom},dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Projectandchatsection)

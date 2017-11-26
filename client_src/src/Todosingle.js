@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import Dropzone from 'react-dropzone'
 import 'react-tabs/style/react-tabs.css';
+import {fetchprojectlist} from './actions/index.js'
 import 'react-dates/initialize'
 import DatePicker from 'react-date-picker';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import { Dropdown } from 'semantic-ui-react'
 import TagsInput from 'react-tagsinput'
-import 'react-tagsinput/react-tagsinput.css'
+import 'react-tagsinput/react-tagsinput.css';
+import {Tasks_add_Who_Will_Do_This_Task} from './actions/index.js';
+import {add_expand_task_number} from './actions/index.js';
+import {add_new_task} from './actions/index.js';
+
 var ReactTags = require('react-tag-autocomplete');
 
 
@@ -16,76 +23,112 @@ var ReactTags = require('react-tag-autocomplete');
 class Todosingle extends Component {
   constructor(props){
     super(props);
-    this.state={moretags:[],tags: [
-        { id: 1, name: "Ankur" }
+    this.state={addtaskbutton:false,taskname:""}
 
-      ],
-      suggestions: [
-        { id: 3, name: "megha" },
-        { id: 4, name: "Margaret" },
-        { id: 5, name: "Mr. ram" },
-        { id: 6, name: "Tom" }
-      ],expandtask:0,tasks:[{id:0,taskname:"go to school",doer:["ankur","megha"],startdate:"",enddate:"",description:"description for project 1",
-      files:["file.docs","doc1.txt"],priority:"high",followers:["ankur","megha","uma"],repeats:"",reminders:[],tags:[]},
-    {id:1,taskname:"web design",doer:["ankur","megha"],startdate:"",enddate:"",description:"description for project 1",
-    files:["file.docs","doc1.txt"],priority:"low",followers:["tom","martha","cindy"],repeats:"",reminders:[],tags:[]}
-
-
-
-  ]}
 
   }
 
   handleDelete(i) {
-    var tags = this.state.tags.slice(0)
-    tags.splice(i, 1)
-    this.setState({ tags: tags })
+    console.log("handle deleted")
   };
   handleAddition(tag) {
-    var tags = this.state.tags.concat(tag)
-    this.setState({ tags: tags })
+  console.log("handle addition")
   };
 
-  expandtaskfunc(e){
+  expandtaskfunc(selectedroomname,taskid){
+    console.log("amazing")
+    console.log("clicked task",selectedroomname,taskid)
+    this.props.add_expand_task_number(selectedroomname,taskid)
+    /*
     var id = e.target.id;
-    console.log("id is ",id)
+
     this.setState({expandtask:id})
+    */
+
 
   }
    onDrop(acceptedFiles, rejectedFiles) {
   // do stuff with files...
-  console.log("accepted files",acceptedFiles);
-  console.log("rejected files",rejectedFiles)
+  console.log("files dropped")
 }
 
 uploadFile(files){
-  console.log("upload files: ",files)
+  console.log("upload files function")
+
 }
 
   handledescription(e){
-
+    console.log("handle description");
     this.setState({description:e.target.id})
 
   }
 
-  onChangeFollower(event,data){
-    console.log("event is ",event,"data is ",data);
-    var tochange = data.value;
-    this.setState({followers:tochange})
+  onChangeFollower(event,data, nameid){
+
+    console.log("data.value",data.value)
+    console.log("this.props.selectedroom.name",this.props.selectedroom.name)
+    console.log("event",event)
+    console.log("id is coming ", nameid)
+    var projectname = this.props.selectedroom.name;
+    var taskid = nameid;
+
+    var tags = data.value;
+    this.props.Tasks_add_Who_Will_Do_This_Task(projectname,taskid,tags)
+
+
   }
 
-  handleMoreTags(tags){
-     this.setState({moretags:tags})
+  addtaskfunc(projectname,taskname){
+    console.log("this.state.addtaskbutton",this.state.addtaskbutton)
+    this.setState({addtaskbutton:!this.state.addtaskbutton})
+    console.log("add task func",projectname,taskname)
+
+      if(this.state.taskname!==""){
+        this.props.add_new_task(projectname,taskname)
+        this.setState({taskname:""})
+      }
+
+
+
+  }
+
+  handleTaskTags(tags){
+    console.log("handle task tags")
+    console.log("tags ",tags)
+    var tsk = this.state.tasks;
+    tsk[0].tags=tags
+    console.log("tags in ",tsk)
+
+       this.setState({tasks:tsk});
+
+        /*
+      var expandedtaskno = this.state.expandtask;
+
+      var tasklist = this.state.tasks;
+      var tagtopush = tags[0];
+      for(var i =0;i<this.state.tasks.length;i++){
+        if(expandedtaskno===this.state.tasks[expandedtaskno].id){
+           console.log("tags ",tags)
+
+          tasklist[expandedtaskno].tasktags.push(tagtopush)
+        }
+      }
+
+     this.setState({tasks:tasklist})
+     console.log("tasktags ",tasklist)
+     */
+
   }
 
   handlePriority(e){
+    console.log("handle priority")
      var id = e.currentTarget.getAttribute("id");
      var tasks = this.state.tasks;
 
 
 
      var ft = tasks.map(function(item){
-       console.log("item in ",item);
+
        if(item.id==id){
 
 
@@ -97,7 +140,7 @@ uploadFile(files){
              return item
        }
      })
-     console.log("ft s",ft)
+
      this.setState({tasks:ft})
 
 
@@ -106,21 +149,26 @@ onChange = date => this.setState({ date })
 
 
   render() {
-           console.log("start date is ",this.state.startDate,"end date is ",this.state.endDate);
-            console.log("this.state ",this.state);
+             console.log("this.props",this.props)
 
-            var expandtask = this.state.expandtask;
+            var expandtask = this.props.selectedroom.expandtask;
+            console.log("expandtask ",expandtask)
             var expandtaskfunc = this.expandtaskfunc.bind(this);
-            var tags = this.state.tags;
-            var moretags = this.state.moretags;
-            var suggestions = this.state.suggestions;
+
+            var tasktags = this.props.selectedroom.tags;
+            var membersofproject = this.props.selectedroom.membersofproject
+
+           var roomname = this.props.selectedroom;
+           var selectedroomname = this.props.selectedroom.name;
             var handleDelete=this.handleDelete.bind(this);
             var uploadFile= this.uploadFile.bind(this);
             var handleAddition=this.handleAddition.bind(this);
              var onChangeFollower = this.onChangeFollower.bind(this);
             var handlePriority=this.handlePriority.bind(this);
-            var handleMoreTags=this.handleMoreTags.bind(this);
-           var tr = this.state.tasks.map(function(item,index){
+            var handleTaskTags=this.handleTaskTags.bind(this);
+            var addtaskfunc = this.addtaskfunc.bind(this);
+           var tr = this.props.selectedroom.tasks.map(function(item,index){
+             console.log("item.id",item.id)
                    var startdate = item.startdate;
                    var enddate = item.enddate;
                    var description =item.description;
@@ -130,16 +178,17 @@ onChange = date => this.setState({ date })
                    var followers = item.followers;
                    var tags = item.tags;
 
-                   console.log("item.priority",item.priority)
-                   const options = item.followers.map(function(itemagain){
-                     return {key:itemagain,text:itemagain,value:itemagain}
-                   })
 
+
+
+                   const doerselectedoptions = [{text: item.doer,value: item.doer,key:item.doer}]
 
 
              return (
-               <div id={item.id} key={index}>
-               <p id={item.id} onClick={expandtaskfunc}>{item.taskname}</p>
+
+               <div style={{borderBottom: "silver 0.5px solid"}} id={item.id} key={index}>
+
+               <p id={item.id} onClick={()=>expandtaskfunc(selectedroomname,item.id)}>{item.taskname}</p>
                  <div style={expandtask==index ? {backgroundColor : "white"}:{display:"none"}}>
                   <Tabs>
                    <TabList>
@@ -158,9 +207,15 @@ onChange = date => this.setState({ date })
                    </TabList>
 
                    <TabPanel>
-                   <div style={{height:"209px",width:"75%"}}>
+                   <div ref="idid" nameid={item.id} style={{height:"209px",width:"75%"}}>
                      <p>  Who will do this task? </p>
-                     <Dropdown onChange={onChangeFollower} placeholder='Select follower' fluid multiple selection options={options} />
+                     <Dropdown
+                     onChange={(event, data) => onChangeFollower(event, data, item.id)}
+                     placeholder='Select follower' fluid multiple selection
+                     defaultValue={'patiala'}
+                     options={membersofproject} />
+
+
                      </div>
 
                    </TabPanel>
@@ -196,7 +251,8 @@ onChange = date => this.setState({ date })
                    <TabPanel>
                    <div style={{height:"209px",width:"75%"}}>
                      <p>Select follower</p>
-                     <Dropdown onChange={onChangeFollower} placeholder='Select follower' fluid multiple selection options={options} />
+                     <Dropdown onChange={(e) => this.onChangeFollower(e,item.id,"yes") }
+                     placeholder='Select follower' fluid multiple selection options={doerselectedoptions} />
                      </div>
                    </TabPanel>
                    <TabPanel>
@@ -212,7 +268,7 @@ onChange = date => this.setState({ date })
                    <TabPanel>
                    <div style={{height:"209px",width:"75%"}}>
                    <p>Please input your tags</p>
-                     <TagsInput value={moretags} onChange={handleMoreTags} />
+                     <TagsInput value={tasktags} onChange={handleTaskTags} />
                      </div>
                    </TabPanel>
 
@@ -226,7 +282,12 @@ onChange = date => this.setState({ date })
            })
     return (
       <div>
+       <h2>Tasks </h2>
        {tr}
+       {this.state.addtaskbutton ? <input
+       type="text" style={{marginTop:"10px",width:"75%",borderRadius: "0.4rem"}} placeholder="Enter your task name here" value={this.state.taskname} onChange={(e)=>this.setState({taskname:e.target.value})} /> : null}<br/><br/>
+       <button onClick={()=>addtaskfunc(this.props.selectedroom.name,this.state.taskname)}>Add new Task</button>
+
 
       </div>
     )
@@ -234,5 +295,36 @@ onChange = date => this.setState({ date })
 
   }
 }
+//tyle={{width:"100%",border:"none",borderRadius: "0.4rem"}}
+function mapStateToProps(state){
 
-export default Todosingle;
+  const projectlist=state.projectlist;
+  const selectedroom = state.projectlist.selectedroom;
+
+
+  if(state.projectlist.selectedroom!==null){
+
+    for(var i =0;i<state.projectlist.chatrooms.length;i++){
+
+         if(state.projectlist.chatrooms[i].name===selectedroom){
+
+           return {
+             selectedroom:state.projectlist.chatrooms[i],
+             projectlist:state.projectlist
+
+
+           }
+         }
+    }
+
+  }
+
+  else{
+       selectedroom:null
+  }
+}
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({add_new_task,fetchprojectlist,Tasks_add_Who_Will_Do_This_Task,add_expand_task_number},dispatch)
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Todosingle)

@@ -22,15 +22,14 @@ class Sidebar extends Component {
 
 
    buttonclicked(){
-     console.log("button clicked");
-     console.log("this.props ",this.props)
+
      this.props.fetchWeather()
    }
 
   render() {
     var buttonclicked= this.buttonclicked.bind(this);
     var td =  "megha";
-    console.log("this.props",this.props)
+    
 
     return (
       <div>

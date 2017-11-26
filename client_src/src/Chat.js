@@ -8,7 +8,12 @@ import ChatBubble from 'react-chat-bubble';
 import Todosingle from './Todosingle';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {addSelectedRoom} from './actions/index.js'
+import {addSelectedRoom} from './actions/index.js';
+import {addEditorText} from './actions/index.js';
+
+
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 import './App.css';
 
@@ -19,7 +24,7 @@ class Chat extends Component {
   constructor(props) {
     super(props);
 
-    this.state={content: 'content',"username":"ankur","messages":[{
+    this.state={text:"amazing is quill",content: 'content',"username":"ankur","messages":[{
         "type" : 0,
         "image": "https://i2.wp.com/charlottelifeandhome.com/wp-content/uploads/2015/06/Headshot-round.png",
         "text": "Hello! Good Morning!,how are you ankur",
@@ -48,6 +53,13 @@ class Chat extends Component {
     this.chatRoom =this.pusher.subscribe('private-messages');
 
 
+  }
+
+  handlequillChange(value) {
+
+
+    var room = this.props.selectedroom.name
+    this.props.addEditorText(value,room)
   }
 
   updateContent(newContent) {
@@ -158,8 +170,10 @@ class Chat extends Component {
 
   }
   render() {
-     console.log("this.props ",this.props)
-     {this.props.selectedroom ? console.log("this.props.  notepad",this.props.selectedroom.notepad) : null}
+
+    var handlequillChange = this.handlequillChange.bind(this)
+
+
 
     var selectoption=this.selectoption.bind(this);
     var updateContent = this.updateContent.bind(this);
@@ -169,6 +183,7 @@ class Chat extends Component {
     var onChange = this.onChange.bind(this);
     var onBlur = this.onBlur.bind(this);
     var afterPaste = this.afterPaste.bind(this);
+
     return (
       <div className="nestedchat">
         <div>
@@ -178,25 +193,18 @@ class Chat extends Component {
         </div>
 
           <div className="chatarea">
-           {this.props.selectedroom  ? this.props.selectedroom.name:null}
-           {this.props.selectedroom ? this.props.selectedroom.notepad : null}
+
+
 
 
           {this.props.selectedroom && this.state.selectoption==="chat" && this.state.selectoption!=="To do" && this.state.selectoption!=="Notepad"
-           ? <ChatBubble messages = {this.state.messages} /> : null}
+           ? <ChatBubble messages = {this.props.selectedroom.messages} /> : null}
            {this.state.selectoption==="To do" && this.state.selectoption!=="chat" && this.state.selectoption!=="Notepad"
             ? <Todosingle/>: null}
             {this.props.selectedroom  && this.state.selectoption==="Notepad" && this.state.selectoption!=="chat" &&
             this.state.selectoption!=="To do"
-             ?  <CKEditor
-              activeClass="p10"
-              content={this.props.selectedroom.notepad}
-              events={{
-                "blur": onBlur,
-                "afterPaste": afterPaste,
-                "change": onChange
-              }}
-             />   : null}
+             ?   <ReactQuill value={this.props.selectedroom.text}
+                  onChange={handlequillChange} />  : null}
 
 
 
@@ -217,12 +225,13 @@ function mapStateToProps(state){
   const projectlist=state.projectlist;
   const selectedroom = state.projectlist.selectedroom;
 
+
   if(state.projectlist.selectedroom!==null){
 
     for(var i =0;i<state.projectlist.chatrooms.length;i++){
 
          if(state.projectlist.chatrooms[i].name===selectedroom){
-            console.log("coming props ",state.projectlist.chatrooms[i])
+
            return {
              selectedroom:state.projectlist.chatrooms[i],
              allrooms:state.projectlist
@@ -242,7 +251,7 @@ function mapStateToProps(state){
 
 }
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({addSelectedRoom},dispatch)
+    return bindActionCreators({addSelectedRoom,addEditorText},dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Chat)
