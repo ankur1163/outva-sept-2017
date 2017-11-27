@@ -689,3 +689,14 @@ export function task_done_undone(projectname,taskid){
 
 
 }
+
+export function change_priority_tasks(projectname,taskid,priority){
+   console.log("inside action add new task",projectname,taskid)
+  var obj = {projectname:projectname,taskid:taskid,priority:priority}
+  return {
+    type:'CHANGE_PRIORITY_TASKS',
+    payload:obj
+  }
+
+
+}

@@ -16,6 +16,8 @@ import {Tasks_add_Who_Will_Do_This_Task} from './actions/index.js';
 import {add_expand_task_number} from './actions/index.js';
 import {add_new_task} from './actions/index.js';
 import {task_done_undone} from './actions/index.js';
+import {change_priority_tasks} from './actions/index.js';
+
 
 
 var ReactTags = require('react-tag-autocomplete');
@@ -126,28 +128,9 @@ uploadFile(files){
 
   }
 
-  handlePriority(e){
+  handlePriority(selectedroomname,taskid,priority){
     console.log("handle priority")
-     var id = e.currentTarget.getAttribute("id");
-     var tasks = this.state.tasks;
-
-
-
-     var ft = tasks.map(function(item){
-
-       if(item.id==id){
-
-
-          var newitem = item;
-          newitem.priority = e.currentTarget.getAttribute("value");
-           return newitem
-       }
-       else{
-             return item
-       }
-     })
-
-     this.setState({tasks:ft})
+     this.props.change_priority_tasks(selectedroomname,taskid,priority)
 
 
   }
@@ -242,17 +225,18 @@ onChange = date => this.setState({ date })
 
                    <TabPanel>
                    <div id={item.id} style={{height:"209px",width:"75%"}}>
-                   <div id={item.id} value="none" onClick={handlePriority} style={item.priority=="none" ? {backgroundColor : "yellow",height:"30px",width:"60px",borderColor:"red",borderRadius: "4px",borderWidth:"5px"}:{backgroundColor:"white",height:"30px",width:"60px",borderColor:"black"}}>
+                   <div id={item.id} value="none" onClick={()=>handlePriority(selectedroomname,item.id,"none")} style={item.priority=="none" ?
+                   {backgroundColor : "yellow",height:"30px",width:"60px",borderColor:"red",borderRadius: "4px",borderWidth:"5px"}:{backgroundColor:"white",height:"30px",width:"60px",borderColor:"black"}}>
                      <p id={item.id} value="none">none</p>
                    </div>
 
-                    <div id={item.id} value="low"  onClick={handlePriority} style={item.priority=="low" ? {backgroundColor : "orange",height:"30px",width:"60px",borderColor:"red",borderRadius: "4px",borderWidth:"5px"}:{backgroundColor:"white",height:"30px",width:"60px",borderColor:"black"}}>
+                    <div id={item.id} value="low"  onClick={()=>handlePriority(selectedroomname,item.id,"low")} style={item.priority=="low" ? {backgroundColor : "orange",height:"30px",width:"60px",borderColor:"red",borderRadius: "4px",borderWidth:"5px"}:{backgroundColor:"white",height:"30px",width:"60px",borderColor:"black"}}>
                       <p>low</p>
                     </div>
-                    <div id={item.id} value="medium"  onClick={handlePriority} style={item.priority=="medium" ? {backgroundColor : "pink",height:"30px",width:"60px",borderColor:"red",borderRadius: "4px",borderWidth:"5px"}:{backgroundColor:"white",height:"30px",width:"60px",borderColor:"black"}}>
+                    <div id={item.id} value="medium"  onClick={()=>handlePriority(selectedroomname,item.id,"medium")} style={item.priority=="medium" ? {backgroundColor : "pink",height:"30px",width:"60px",borderColor:"red",borderRadius: "4px",borderWidth:"5px"}:{backgroundColor:"white",height:"30px",width:"60px",borderColor:"black"}}>
                       <p>medium</p>
                     </div>
-                    <div id={item.id} value="high"  onClick={handlePriority} style={item.priority=="high" ? {backgroundColor : "seagreen",height:"30px",width:"60px",borderRadius: "4px",borderWidth:"5px",borderColor:"red"}:{backgroundColor:"white",height:"30px",width:"60px",borderColor:"black"}}>
+                    <div id={item.id} value="high"  onClick={()=>handlePriority(selectedroomname,item.id,"high")} style={item.priority=="high" ? {backgroundColor : "seagreen",height:"30px",width:"60px",borderRadius: "4px",borderWidth:"5px",borderColor:"red"}:{backgroundColor:"white",height:"30px",width:"60px",borderColor:"black"}}>
                       <p>high</p>
                     </div>
                      </div>
@@ -338,7 +322,7 @@ function mapStateToProps(state){
   }
 }
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({task_done_undone,add_new_task,fetchprojectlist,Tasks_add_Who_Will_Do_This_Task,add_expand_task_number},dispatch)
+    return bindActionCreators({change_priority_tasks,task_done_undone,add_new_task,fetchprojectlist,Tasks_add_Who_Will_Do_This_Task,add_expand_task_number},dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Todosingle)

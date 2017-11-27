@@ -7,6 +7,7 @@ export default function (state={},action){
 
 
   const yourVariable = action.payload;
+  const actiontype = action.type;
   var editortext;
   var roomname;
   var whoWillDoTags;
@@ -98,6 +99,38 @@ export default function (state={},action){
     }
   }
 
+  //change priority task
+
+
+  if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='CHANGE_PRIORITY_TASKS'){
+    console.log("entered inside change priority ")
+    var projectname = yourVariable.projectname;
+    var priority = yourVariable.priority
+
+    taskid = yourVariable.taskid;
+    for(var i =0;i<copystate.chatrooms.length;i++){
+      console.log("in for loop")
+        if(copystate.chatrooms[i].name===projectname ){
+
+          for(var j =0;j<copystate.chatrooms[i].tasks.length;j++){
+            if(copystate.chatrooms[i].tasks[j].id===taskid){
+              copystate.chatrooms[i].tasks[j].priority=priority;
+            }
+            else{
+              console.log("do nothing")
+            }
+          }
+
+
+        }
+        else{
+          console.log("no no ")
+
+        }
+    }
+
+
+  }
   //taskidtoselectforexpanding
 
   if(yourVariable !== null && typeof yourVariable == 'object'&& yourVariable.hasOwnProperty("taskidtoselectforexpanding")){
@@ -111,16 +144,14 @@ export default function (state={},action){
       for(var i =0;i<copystate.chatrooms.length;i++){
         console.log("in for loop")
           if(copystate.chatrooms[i].name===roomname ){
-            console.log("yes yes")
-            if(copystate.chatrooms[i].expandtask=taskidtoselectforexpanding){
-              copystate.chatrooms[i].expandtask=null
 
+            if(copystate.chatrooms[i].expandtask===taskidtoselectforexpanding){
+              copystate.chatrooms[i].expandtask = null;
             }
             else{
-              copystate.chatrooms[i].expandtask=taskidtoselectforexpanding
-              console.log("done")
-
+              copystate.chatrooms[i].expandtask = taskidtoselectforexpanding;
             }
+
 
           }
           else{
@@ -252,6 +283,9 @@ export default function (state={},action){
             return copystate
          case 'TASK_DONE_UNDONE':
             return copystate
+
+         case 'CHANGE_PRIORITY_TASKS':
+             return copystate
 
          default:
       return state;
