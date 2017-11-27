@@ -40,6 +40,7 @@ chatrooms:[
                 taskname:"private message go to school",
                 doer:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                 startdate:"",
+                taskStatusLive:true,
                 enddate:"",
                 description:"description for project 1",
                files:["file.docs","doc1.txt"],
@@ -55,6 +56,7 @@ chatrooms:[
                taskname:"web design",
                doer:[{text: ' 2 2 2 Jenny ank Hess',value: 'Jenny Hess'}],
                startdate:"",
+               taskStatusLive:true,
                enddate:"",
                description:"description for project 1",
                files:["file.docs","doc1.txt"],
@@ -102,6 +104,7 @@ chatrooms:[
                 taskname:"project 2 go to school",
                 doer:[{text: 'patiala',value: 'patiala'}],
                 startdate:"",
+                taskStatusLive:true,
                 enddate:"",
                 description:"description for project 1",
                files:["file.docs","doc1.txt"],
@@ -117,6 +120,7 @@ chatrooms:[
                taskname:"web design",
                doer:["ankur","megha"],
                startdate:"",
+               taskStatusLive:true,
                enddate:"",
                description:"description for project 1",
                files:["file.docs","doc1.txt"],
@@ -162,6 +166,7 @@ chatrooms:[
                 taskname:"project 3 go to school",
                 doer:[{text: 'rajpura',value: 'rajpura'}],
                 startdate:"",
+                taskStatusLive:true,
                 enddate:"",
                 description:"description for project 1",
                files:["file.docs","doc1.txt"],
@@ -177,6 +182,7 @@ chatrooms:[
                taskname:"web design",
                doer:["ankur","megha"],
                startdate:"",
+               taskStatusLive:true,
                enddate:"",
                description:"description for project 1",
                files:["file.docs","doc1.txt"],
@@ -222,6 +228,7 @@ chatrooms:[
                 taskname:"project 4 go to school",
                 doer:[{text: 'barnala',value: 'barnala'}],
                 startdate:"",
+                taskStatusLive:true,
                 enddate:"",
                 description:"description for project 1",
                files:["file.docs","doc1.txt"],
@@ -237,6 +244,7 @@ chatrooms:[
                taskname:"web design",
                doer:["ankur","megha"],
                startdate:"",
+               taskStatusLive:true,
                enddate:"",
                description:"description for project 1",
                files:["file.docs","doc1.txt"],
@@ -282,6 +290,7 @@ chatrooms:[
                 taskname:"project 5 go to school",
                 doer:[{text: 'almirah',value: 'almirah'}],
                 startdate:"",
+                taskStatusLive:true,
                 enddate:"",
                 description:"description for project 1",
                files:["file.docs","doc1.txt"],
@@ -297,6 +306,7 @@ chatrooms:[
                taskname:"web design",
                doer:["ankur","megha"],
                startdate:"",
+               taskStatusLive:true,
                enddate:"",
                description:"description for project 1",
                files:["file.docs","doc1.txt"],
@@ -342,6 +352,7 @@ chatrooms:[
                 taskname:"project 7 go to school",
                 doer:[{text: 'laptop',value: 'laptop'}],
                 startdate:"",
+                taskStatusLive:true,
                 enddate:"",
                 description:"description for project 1",
                files:["file.docs","doc1.txt"],
@@ -357,6 +368,7 @@ chatrooms:[
                taskname:"web design",
                doer:["ankur","megha"],
                startdate:"",
+               taskStatusLive:true,
                enddate:"",
                description:"description for project 1",
                files:["file.docs","doc1.txt"],
@@ -402,6 +414,7 @@ chatrooms:[
                   taskname:"project 7 go to school",
                   doer:[{text: 'get u ',value: 'get u'}],
                   startdate:"",
+                  taskStatusLive:true,
                   enddate:"",
                   description:"description for project 1",
                  files:["file.docs","doc1.txt"],
@@ -417,6 +430,7 @@ chatrooms:[
                  taskname:"web design",
                  doer:["ankur","megha"],
                  startdate:"",
+                 taskStatusLive:true,
                  enddate:"",
                  description:"description for project 1",
                  files:["file.docs","doc1.txt"],
@@ -432,6 +446,8 @@ chatrooms:[
 
           ]
            },
+
+           //start task
           {
             key:8,
             color:false,
@@ -462,6 +478,7 @@ chatrooms:[
               taskname:"go to school",
               doer:["ankur","megha"],
               startdate:"",
+              taskStatusLive:true,
               enddate:"",
               description:"description for project 1",
              files:["file.docs","doc1.txt"],
@@ -477,6 +494,7 @@ chatrooms:[
              taskname:"web design",
              doer:["ankur","megha"],
              startdate:"",
+             taskStatusLive:true,
              enddate:"",
              description:"description for project 1",
              files:["file.docs","doc1.txt"],
@@ -492,6 +510,8 @@ chatrooms:[
 
       ]
          },
+
+         //ends task
           {
             key:9,
             color:false,
@@ -522,6 +542,7 @@ chatrooms:[
                 taskname:"go to school",
                 doer:["ankur","megha"],
                 startdate:"",
+                taskStatusLive:true,
                 enddate:"",
                 description:"description for project 1",
                files:["file.docs","doc1.txt"],
@@ -537,6 +558,7 @@ chatrooms:[
                taskname:"web design",
                doer:["ankur","megha"],
                startdate:"",
+               taskStatusLive:true,
                enddate:"",
                description:"description for project 1",
                files:["file.docs","doc1.txt"],
@@ -651,6 +673,17 @@ export function add_new_task(projectname,newtaskname){
   var obj = {projectname:projectname,newtaskname:newtaskname}
   return {
     type:'ADD_NEW_TASK',
+    payload:obj
+  }
+
+
+}
+
+export function task_done_undone(projectname,taskid){
+   console.log("inside action add new task",projectname,taskid)
+  var obj = {projectname:projectname,taskiddoneundone:taskid}
+  return {
+    type:'TASK_DONE_UNDONE',
     payload:obj
   }
 

@@ -17,6 +17,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import TextField from 'material-ui/TextField';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
 
@@ -53,7 +54,7 @@ class Projectandchatsection extends Component {
     this.props.addSelectedRoom(e.target.getAttribute('name'))
   }
   addnewproject(e){
-
+   console.log("add new project",this.state.term)
 
     if(this.state.term!==""){
       this.props.addProjectName(this.state.term);
@@ -69,6 +70,7 @@ class Projectandchatsection extends Component {
 
     var projectclick =this.projectclick.bind(this);
     var handleColor = this.handleColor.bind(this);
+
     var classes =  "colorproject projectssection";
     var projectboxclicked = this.projectboxclicked.bind(this)
     var addnewproject= this.addnewproject.bind(this);
@@ -134,6 +136,7 @@ class Projectandchatsection extends Component {
 
 
 
+
                       </div>
                   </div>
               <div>
@@ -184,7 +187,7 @@ function mapStateToProps(state){
   }
 }
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({fetchprojectlist,fetchWeather,addSelectedRoom},dispatch)
+    return bindActionCreators({fetchprojectlist,fetchWeather,addSelectedRoom,addProjectName},dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Projectandchatsection)

@@ -11,8 +11,76 @@ export default function (state={},action){
   var roomname;
   var whoWillDoTags;
   var taskid;
-
+  var sampleroom;
   var copystate =Object.assign({}, state);
+  if(action.type==='ADD_PROJECT_NAME'){
+    var randomnumber =  Math.floor(100000 + Math.random() * 900000);
+    sampleroom = {
+      key:randomnumber,
+      color:false,
+      name:action.payload,
+      notepad:"running in the ground",
+      text:"bharthal",
+    "messages":[{
+        "type" : 0,
+        "image": "https://i2.wp.com/charlottelifeandhome.com/wp-content/uploads/2015/06/Headshot-round.png",
+        "text": "project 8 Hello! Good Morning!,how are you ankur",
+        "date":"Wed Oct 11 2017 11:32:19 GMT+0530 (IST)"
+    }, {
+        "type": 1,
+        "image": "https://static1.squarespace.com/static/53a7236ee4b0370cf58d8c89/5478ceefe4b0542adccf11df/5478ceeee4b0542adccf11c4/1417203462225/Will-headshot-round-small.jpg",
+        "text": "project 8 Hello! Good Afternoon!",
+        "date":"Wed Oct 11 2017 11:32:19 GMT+0530 (IST)"
+    }],
+    expandtask:null,
+    membersofproject:[
+                      {text: 'tv',value: 'tv'},
+                      {text: 'bv',value: 'bv'},
+                      {text: 'pv',value: 'pv'},
+
+                    ],
+    tasks:[
+      {
+        id:0,
+        taskname:"go to school",
+        doer:["ankur","megha"],
+        startdate:"",
+        taskStatusLive:true,
+        enddate:"",
+        description:"description for project 1",
+       files:["file.docs","doc1.txt"],
+       priority:"high",
+       followers:["ankur","megha","uma"],
+       repeats:"",
+       reminders:[],
+       tags:[],
+       tasktags:[]
+     },
+     {
+       id:1,
+       taskname:"web design",
+       doer:["ankur","megha"],
+       startdate:"",
+       taskStatusLive:true,
+       enddate:"",
+       description:"description for project 1",
+       files:["file.docs","doc1.txt"],
+       priority:"low",
+       followers:["tom","martha","cindy"],
+       repeats:"",
+       reminders:[],
+       tags:[],
+       tasktags:[]
+     }
+
+
+
+ ]
+   }
+  }
+  else{
+
+  }
 
 
 
@@ -34,14 +102,30 @@ export default function (state={},action){
 
   if(yourVariable !== null && typeof yourVariable == 'object'&& yourVariable.hasOwnProperty("taskidtoselectforexpanding")){
     //{projectname:selectedroomname,taskidtoselectforexpanding:taskid}
-
+    console.log("entered expand task reducer")
     var roomname = yourVariable.projectname;
     var taskidtoselectforexpanding=yourVariable.taskidtoselectforexpanding
 
     if(copystate.chatrooms){
+      console.log("expand task id reducer")
       for(var i =0;i<copystate.chatrooms.length;i++){
-          if(copystate.chatrooms[i].name===roomname){
-             copystate.chatrooms[i].expandtask=taskidtoselectforexpanding
+        console.log("in for loop")
+          if(copystate.chatrooms[i].name===roomname ){
+            console.log("yes yes")
+            if(copystate.chatrooms[i].expandtask=taskidtoselectforexpanding){
+              copystate.chatrooms[i].expandtask=null
+
+            }
+            else{
+              copystate.chatrooms[i].expandtask=taskidtoselectforexpanding
+              console.log("done")
+
+            }
+
+          }
+          else{
+            console.log("no no ")
+
           }
       }
 
@@ -88,6 +172,7 @@ export default function (state={},action){
               taskname:addnewtask,
               doer:["ankur","megha"],
               startdate:"",
+              taskStatusLive:true,
               enddate:"",
               description:"description for project 1",
              files:["file.docs","doc1.txt"],
@@ -107,6 +192,34 @@ export default function (state={},action){
   }
 
 
+  //task done undone
+
+  if(yourVariable !== null && typeof yourVariable == 'object'&& yourVariable.hasOwnProperty("taskiddoneundone")){
+    console.log("task done undone ")
+
+    roomname = yourVariable.projectname;
+
+    taskid = yourVariable.taskiddoneundone;
+    console.log("projectname ",roomname,"taskid",taskid)
+
+      for(var i =0;i<copystate.chatrooms.length;i++){
+
+          if(copystate.chatrooms[i].name===roomname){
+            console.log("second ")
+             for(var j =0;j< copystate.chatrooms[i].tasks.length;j++){
+                 console.log("copystate.chatrooms[i].tasks[j].id",copystate.chatrooms[i].tasks[j].id,"taskid",taskid)
+                  if(copystate.chatrooms[i].tasks[j].id===taskid){
+                    console.log("matched")
+                    copystate.chatrooms[i].tasks[j].taskStatusLive=!copystate.chatrooms[i].tasks[j].taskStatusLive
+                  }
+             }
+          }
+      }
+
+
+  }
+
+
   var tg = action.payload;
   switch(action.type){
     case 'FETCH_PROJECT_LIST':
@@ -116,7 +229,7 @@ export default function (state={},action){
         ...state, // make a copy of the current state
         chatrooms: [ // make state.chatrooms a new array, that:
           ...state.chatrooms, // has a copy of state.chatrooms
-           {key: state.chatrooms.length+1, color: false, name: action.payload} // and add the new item at the end
+            sampleroom// and add the new item at the end
         ]
      }
      case 'ADD_SELECTED_ROOM':
@@ -136,6 +249,8 @@ export default function (state={},action){
          return copystate
 
          case 'ADD_NEW_TASK':
+            return copystate
+         case 'TASK_DONE_UNDONE':
             return copystate
 
          default:

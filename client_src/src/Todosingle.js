@@ -15,6 +15,8 @@ import 'react-tagsinput/react-tagsinput.css';
 import {Tasks_add_Who_Will_Do_This_Task} from './actions/index.js';
 import {add_expand_task_number} from './actions/index.js';
 import {add_new_task} from './actions/index.js';
+import {task_done_undone} from './actions/index.js';
+
 
 var ReactTags = require('react-tag-autocomplete');
 
@@ -37,13 +39,11 @@ class Todosingle extends Component {
 
   expandtaskfunc(selectedroomname,taskid){
     console.log("amazing")
+    console.log("selectedroomname",selectedroomname,"taskid",taskid)
     console.log("clicked task",selectedroomname,taskid)
-    this.props.add_expand_task_number(selectedroomname,taskid)
-    /*
-    var id = e.target.id;
 
-    this.setState({expandtask:id})
-    */
+    this.props.add_expand_task_number(selectedroomname,taskid);
+
 
 
   }
@@ -75,6 +75,12 @@ uploadFile(files){
     var tags = data.value;
     this.props.Tasks_add_Who_Will_Do_This_Task(projectname,taskid,tags)
 
+
+  }
+
+  taskCheckbox(projectname,taskid){
+    console.log("projectname ",projectname,"taskid",taskid)
+   this.props.task_done_undone(projectname,taskid)
 
   }
 
@@ -152,6 +158,7 @@ onChange = date => this.setState({ date })
              console.log("this.props",this.props)
 
             var expandtask = this.props.selectedroom.expandtask;
+            var taskCheckbox = this.taskCheckbox.bind(this);
             console.log("expandtask ",expandtask)
             var expandtaskfunc = this.expandtaskfunc.bind(this);
 
@@ -183,13 +190,16 @@ onChange = date => this.setState({ date })
 
                    const doerselectedoptions = [{text: item.doer,value: item.doer,key:item.doer}]
 
-
+                  console.log("item.id",item.id,"expandtask",expandtask);
              return (
 
-               <div style={{borderBottom: "silver 0.5px solid"}} id={item.id} key={index}>
+               <div style={{borderBottom: "silver 0.5px solid",margin:"25px"}} id={item.id} key={index}>
 
-               <p id={item.id} onClick={()=>expandtaskfunc(selectedroomname,item.id)}>{item.taskname}</p>
-                 <div style={expandtask==index ? {backgroundColor : "white"}:{display:"none"}}>
+               <input type="checkbox" onClick={()=>taskCheckbox(selectedroomname,item.id)} name={item.name} value={item.id} />
+               &nbsp;&nbsp;&nbsp;
+               <label id={item.id} onClick={()=>expandtaskfunc(selectedroomname,item.id)}>{
+                 item.taskStatusLive ? item.taskname:<strike>{item.taskname}</strike>}</label>
+                 <div style={expandtask==item.id ? {backgroundColor : "white"}:{display:"none"}}>
                   <Tabs>
                    <TabList>
                      <Tab><i className="fa fa-user-o" aria-hidden="true"></i></Tab>
@@ -285,8 +295,12 @@ onChange = date => this.setState({ date })
        <h2>Tasks </h2>
        {tr}
        {this.state.addtaskbutton ? <input
-       type="text" style={{marginTop:"10px",width:"75%",borderRadius: "0.4rem"}} placeholder="Enter your task name here" value={this.state.taskname} onChange={(e)=>this.setState({taskname:e.target.value})} /> : null}<br/><br/>
-       <button onClick={()=>addtaskfunc(this.props.selectedroom.name,this.state.taskname)}>Add new Task</button>
+       type="text" style={{margin:"25px",width:"75%",borderRadius: "0.4rem"}}
+       placeholder="Enter your task name here" value={this.state.taskname}
+       onChange={(e)=>this.setState({taskname:e.target.value})} /> : null}<br/><br/>
+       <button style={{marginLeft:"25px" }}
+       onClick={()=>addtaskfunc(this.props.selectedroom.name,this.state.taskname)}>
+       {this.state.addtaskbutton?<span>Submit</span>:<span>Add new task</span>}</button>
 
 
       </div>
@@ -324,7 +338,7 @@ function mapStateToProps(state){
   }
 }
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({add_new_task,fetchprojectlist,Tasks_add_Who_Will_Do_This_Task,add_expand_task_number},dispatch)
+    return bindActionCreators({task_done_undone,add_new_task,fetchprojectlist,Tasks_add_Who_Will_Do_This_Task,add_expand_task_number},dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Todosingle)
