@@ -6,7 +6,6 @@ const req = {selectedroom:"",setcolor:false,hours:2,searchterm:"",
 selectedroom:null,
 dropdownvalue:1,
 dropdownvaluetwo:1,
-
 chatrooms:[
            {
              key:1,
