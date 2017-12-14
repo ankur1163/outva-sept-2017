@@ -10,8 +10,11 @@ dropdownvaluetwo:1,
 chatrooms:[
            {
              key:1,
+
+             tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"private-messages",
+
             notepad:"first one",
             text:"ankur",
             "messages":[{
@@ -45,11 +48,11 @@ chatrooms:[
                 description:"description for project 1",
                files:["file.docs","doc1.txt"],
                priority:"high",
-               followers:["ankur","megha","uma"],
+               followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[]
+                tasktags:[{ id: 1, text: "3Thailand" }, { id: 2, text: "3India" }]
              },
              {
                id:1,
@@ -61,11 +64,11 @@ chatrooms:[
                description:"description for project 1",
                files:["file.docs","doc1.txt"],
                priority:"low",
-               followers:["tom","martha","cindy"],
+               followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[]
+                tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
              }
 
 
@@ -74,6 +77,8 @@ chatrooms:[
           },
           {
             key:2,
+            tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+            tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"project2",
             notepad:"this is great",
@@ -109,11 +114,11 @@ chatrooms:[
                 description:"description for project 1",
                files:["file.docs","doc1.txt"],
                priority:"high",
-               followers:["ankur","megha","uma"],
+               followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[]
+               tasktags:[{ id: 1, text: "4Thailand" }, { id: 2, text: "4India" }]
              },
              {
                id:1,
@@ -125,11 +130,11 @@ chatrooms:[
                description:"description for project 1",
                files:["file.docs","doc1.txt"],
                priority:"low",
-               followers:["tom","martha","cindy"],
+               followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[]
+               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
              }
 
 
@@ -138,6 +143,8 @@ chatrooms:[
         },
           {
             key:3,
+            tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+            tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"project3",
             notepad:"awesome is awesome",
@@ -171,11 +178,11 @@ chatrooms:[
                 description:"description for project 1",
                files:["file.docs","doc1.txt"],
                priority:"high",
-               followers:["ankur","megha","uma"],
+               followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[]
+               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
              },
              {
                id:1,
@@ -187,11 +194,11 @@ chatrooms:[
                description:"description for project 1",
                files:["file.docs","doc1.txt"],
                priority:"low",
-               followers:["tom","martha","cindy"],
+               followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[]
+               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
              }
 
 
@@ -200,6 +207,8 @@ chatrooms:[
           },
           {
             key:4,
+            tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+            tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"project 4",
             notepad:"hulk hulk",
@@ -233,11 +242,11 @@ chatrooms:[
                 description:"description for project 1",
                files:["file.docs","doc1.txt"],
                priority:"high",
-               followers:["ankur","megha","uma"],
+               followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[]
+               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
              },
              {
                id:1,
@@ -249,11 +258,11 @@ chatrooms:[
                description:"description for project 1",
                files:["file.docs","doc1.txt"],
                priority:"low",
-               followers:["tom","martha","cindy"],
+               followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[]
+               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
              }
 
 
@@ -262,6 +271,8 @@ chatrooms:[
          },
           {
             key:5,
+            tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+            tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"project 5",
             notepad:"going to new york",
@@ -295,11 +306,11 @@ chatrooms:[
                 description:"description for project 1",
                files:["file.docs","doc1.txt"],
                priority:"high",
-               followers:["ankur","megha","uma"],
+               followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[]
+               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
              },
              {
                id:1,
@@ -311,11 +322,11 @@ chatrooms:[
                description:"description for project 1",
                files:["file.docs","doc1.txt"],
                priority:"low",
-               followers:["tom","martha","cindy"],
+               followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[]
+               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
              }
 
 
@@ -324,6 +335,8 @@ chatrooms:[
          },
           {
             key:6,
+            tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+            tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"project 6",
             notepad:"coming back to london",
@@ -357,11 +370,11 @@ chatrooms:[
                 description:"description for project 1",
                files:["file.docs","doc1.txt"],
                priority:"high",
-               followers:["ankur","megha","uma"],
+               followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[]
+               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
              },
              {
                id:1,
@@ -373,11 +386,11 @@ chatrooms:[
                description:"description for project 1",
                files:["file.docs","doc1.txt"],
                priority:"low",
-               followers:["tom","martha","cindy"],
+               followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[]
+               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
              }
 
 
@@ -386,6 +399,8 @@ chatrooms:[
           },
             {
               key:7,
+              tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+              tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
               color:false,
               name:"project 7",
               notepad:"the charger is lit",
@@ -419,11 +434,11 @@ chatrooms:[
                   description:"description for project 1",
                  files:["file.docs","doc1.txt"],
                  priority:"high",
-                 followers:["ankur","megha","uma"],
+                 followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                  repeats:"",
                  reminders:[],
                  tags:[],
-                 tasktags:[]
+                 tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
                },
                {
                  id:1,
@@ -435,11 +450,11 @@ chatrooms:[
                  description:"description for project 1",
                  files:["file.docs","doc1.txt"],
                  priority:"low",
-                 followers:["tom","martha","cindy"],
+                 followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                  repeats:"",
                  reminders:[],
                  tags:[],
-                 tasktags:[]
+                 tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
                }
 
 
@@ -450,6 +465,8 @@ chatrooms:[
            //start task
           {
             key:8,
+            tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+            tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"project 8",
             notepad:"running in the ground",
@@ -483,11 +500,11 @@ chatrooms:[
               description:"description for project 1",
              files:["file.docs","doc1.txt"],
              priority:"high",
-             followers:["ankur","megha","uma"],
+             followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
              repeats:"",
              reminders:[],
              tags:[],
-             tasktags:[]
+             tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
            },
            {
              id:1,
@@ -499,11 +516,11 @@ chatrooms:[
              description:"description for project 1",
              files:["file.docs","doc1.txt"],
              priority:"low",
-             followers:["tom","martha","cindy"],
+             followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
              repeats:"",
              reminders:[],
              tags:[],
-             tasktags:[]
+             tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
            }
 
 
@@ -514,6 +531,8 @@ chatrooms:[
          //ends task
           {
             key:9,
+            tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+            tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"project 9",
             notepad:"abra ka dabra",
@@ -547,11 +566,11 @@ chatrooms:[
                 description:"description for project 1",
                files:["file.docs","doc1.txt"],
                priority:"high",
-               followers:["ankur","megha","uma"],
+               followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[]
+               tasktags:[{ id: 1, text: "1Thailand" }, { id: 2, text: "1India" }]
              },
              {
                id:1,
@@ -563,11 +582,11 @@ chatrooms:[
                description:"description for project 1",
                files:["file.docs","doc1.txt"],
                priority:"low",
-               followers:["tom","martha","cindy"],
+               followers:[{key:"jenny",text: 'Jenny ank Hess',value: 'Jenny Hess'}],
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[]
+               tasktags:[{ id: 1, text: "2Thailand" }, { id: 2, text: "2India" }]
              }
 
 
@@ -695,6 +714,30 @@ export function change_priority_tasks(projectname,taskid,priority){
   var obj = {projectname:projectname,taskid:taskid,priority:priority}
   return {
     type:'CHANGE_PRIORITY_TASKS',
+    payload:obj
+  }
+
+
+}
+
+export function change_follower_Task(projectname,taskid,follower){
+
+   var obj = {projectname:projectname,taskid:taskid,follower:follower};
+   console.log("change follower task",obj)
+  return {
+    type:'CHANGE_FOLLOWER_TASK',
+    payload:obj
+  }
+
+
+}
+
+export function add_tags_task(projectname,taskid,tasktags){
+
+   var obj = {projectname:projectname,taskid:taskid,tasktags:tasktags};
+   console.log("tasktags ",obj)
+  return {
+    type:'ADD_TAGS_TASK',
     payload:obj
   }
 

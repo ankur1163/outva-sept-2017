@@ -29,11 +29,11 @@ class Sidebar extends Component {
   render() {
     var buttonclicked= this.buttonclicked.bind(this);
     var td =  "megha";
-    
+
 
     return (
-      <div>
-         <div className="wrappersidebar">
+      <div className="wrappersidebar">
+         <div >
           <img  width="144px" src="https://p13.zdassets.com/hc/settings_assets/1174603/200346447/6auSHeGEOYcjY1cw8CPSHA-moxtra-logo.png" alt="logo" />
 
          </div>

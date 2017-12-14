@@ -209,12 +209,14 @@ class Chat extends Component {
 
 
           </div>
-        <div>
-          <p>username<input type="text" onChange={usch}/>
-          message<input type="text" onChange={txch}/>
-          <button onClick={sm}>click here</button></p>
+          {this.props.selectedroom && this.state.selectoption==="chat" && this.state.selectoption!=="To do" && this.state.selectoption!=="Notepad"
+           ?  <div>
+             <p>username<input type="text" onChange={usch}/>
+             message<input type="text" onChange={txch}/>
+             <button onClick={sm}>click here</button></p>
 
-         </div>
+            </div> : null}
+
       </div>
     );
   }

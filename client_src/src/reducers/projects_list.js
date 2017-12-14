@@ -184,6 +184,29 @@ export default function (state={},action){
     }
   }
 
+  //change followers for tasks
+
+  if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='CHANGE_FOLLOWER_TASK'){
+    console.log("reducer change follower")
+
+    var projectname = yourVariable.projectname;
+    var follower = yourVariable.follower;
+    var taskid = yourVariable.taskid;
+    console.log("projectname ",projectname,"followers",follower,"taskid",taskid)
+    if(copystate.chatrooms){
+      for(var i =0;i<copystate.chatrooms.length;i++){
+          if(copystate.chatrooms[i].name===roomname){
+             for(var j =0;j< copystate.chatrooms[j].tasks.length;j++){
+                  if(copystate.chatrooms[i].tasks[j].id===taskid){
+                    copystate.chatrooms[i].tasks[j].followers=follower
+                  }
+             }
+          }
+      }
+
+    }
+  }
+
   //add new task
 
   if(yourVariable !== null && typeof yourVariable == 'object'&& yourVariable.hasOwnProperty("newtaskname")&& typeof yourVariable.newtaskname !== 'undefined'){
@@ -250,6 +273,46 @@ export default function (state={},action){
 
   }
 
+
+//add task tags
+
+if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='ADD_TAGS_TASK'){
+  console.log("tadd task tags entered ")
+
+  roomname = yourVariable.projectname;
+
+  taskid = yourVariable.taskid;
+  var tasktag =yourVariable.tasktags;
+  console.log("roomname ",roomname,"taskid ",taskid,"tasktag ",tasktag)
+
+
+    for(var i =0;i<copystate.chatrooms.length;i++){
+
+        if(copystate.chatrooms[i].name===roomname){
+          console.log("second ")
+          if(copystate.chatrooms[i].tasktagssuggestions.indexOf(tasktag)===-1){
+             copystate.chatrooms[i].tasktagssuggestions.push(tasktag)
+
+          }
+
+
+           for(var j =0;j< copystate.chatrooms[i].tasks.length;j++){
+               console.log("copystate.chatrooms[i].tasks[j].id",copystate.chatrooms[i].tasks[j].id,"taskid",taskid)
+                if(copystate.chatrooms[i].tasks[j].id===taskid){
+                  console.log("matched")
+
+
+                  copystate.chatrooms[i].tasks[j].tasktags.push({
+                     id: copystate.chatrooms[i].tasks[j].tasktags.length + 1,
+                     text: tasktag
+                 });
+                }
+           }
+        }
+    }
+
+
+}
 
   var tg = action.payload;
   switch(action.type){
