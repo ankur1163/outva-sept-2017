@@ -52,7 +52,7 @@ chatrooms:[
                repeats:"",
                reminders:[],
                tags:[],
-                tasktags:[{ id: 1, text: "3Thailand" }, { id: 2, text: "3India" }]
+                tasktags:[{ id: 0, text: "3Thailand" }, { id: 1, text: "3India" }]
              },
              {
                id:1,
@@ -68,7 +68,7 @@ chatrooms:[
                repeats:"",
                reminders:[],
                tags:[],
-                tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
+                tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }]
              }
 
 
@@ -77,7 +77,7 @@ chatrooms:[
           },
           {
             key:2,
-            tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+            tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }],
             tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"project2",
@@ -118,7 +118,7 @@ chatrooms:[
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[{ id: 1, text: "4Thailand" }, { id: 2, text: "4India" }]
+               tasktags:[{ id: 0, text: "4Thailand" }, { id: 1, text: "4India" }]
              },
              {
                id:1,
@@ -134,7 +134,7 @@ chatrooms:[
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
+               tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }]
              }
 
 
@@ -143,7 +143,7 @@ chatrooms:[
         },
           {
             key:3,
-            tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+
             tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"project3",
@@ -182,7 +182,7 @@ chatrooms:[
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
+               tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }]
              },
              {
                id:1,
@@ -198,7 +198,7 @@ chatrooms:[
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
+               tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }]
              }
 
 
@@ -207,7 +207,7 @@ chatrooms:[
           },
           {
             key:4,
-            tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+
             tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"project 4",
@@ -246,7 +246,7 @@ chatrooms:[
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
+               tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }]
              },
              {
                id:1,
@@ -262,7 +262,7 @@ chatrooms:[
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
+               tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }]
              }
 
 
@@ -271,7 +271,7 @@ chatrooms:[
          },
           {
             key:5,
-            tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+
             tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"project 5",
@@ -310,7 +310,7 @@ chatrooms:[
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
+               tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }]
              },
              {
                id:1,
@@ -326,7 +326,7 @@ chatrooms:[
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
+               tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }]
              }
 
 
@@ -335,7 +335,7 @@ chatrooms:[
          },
           {
             key:6,
-            tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+
             tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"project 6",
@@ -374,7 +374,7 @@ chatrooms:[
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
+               tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }]
              },
              {
                id:1,
@@ -390,7 +390,7 @@ chatrooms:[
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
+               tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }]
              }
 
 
@@ -399,7 +399,7 @@ chatrooms:[
           },
             {
               key:7,
-              tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+
               tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
               color:false,
               name:"project 7",
@@ -438,7 +438,7 @@ chatrooms:[
                  repeats:"",
                  reminders:[],
                  tags:[],
-                 tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
+                 tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }]
                },
                {
                  id:1,
@@ -454,7 +454,7 @@ chatrooms:[
                  repeats:"",
                  reminders:[],
                  tags:[],
-                 tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
+                 tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }]
                }
 
 
@@ -465,7 +465,7 @@ chatrooms:[
            //start task
           {
             key:8,
-            tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+
             tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"project 8",
@@ -504,7 +504,7 @@ chatrooms:[
              repeats:"",
              reminders:[],
              tags:[],
-             tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
+             tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }]
            },
            {
              id:1,
@@ -520,7 +520,7 @@ chatrooms:[
              repeats:"",
              reminders:[],
              tags:[],
-             tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }]
+             tasktags:[{ id: 0, text: "Thailand" }, { id: 1, text: "India" }]
            }
 
 
@@ -531,7 +531,7 @@ chatrooms:[
          //ends task
           {
             key:9,
-            tasktags:[{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+
             tasktagssuggestions:["mango", "pineapple", "orange", "pear"],
             color:false,
             name:"project 9",
@@ -570,7 +570,7 @@ chatrooms:[
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[{ id: 1, text: "1Thailand" }, { id: 2, text: "1India" }]
+               tasktags:[{ id: 0, text: "1Thailand" }, { id: 1, text: "1India" }]
              },
              {
                id:1,
@@ -586,7 +586,7 @@ chatrooms:[
                repeats:"",
                reminders:[],
                tags:[],
-               tasktags:[{ id: 1, text: "2Thailand" }, { id: 2, text: "2India" }]
+               tasktags:[{ id: 0, text: "2Thailand" }, { id: 1, text: "2India" }]
              }
 
 
@@ -738,6 +738,21 @@ export function add_tags_task(projectname,taskid,tasktags){
    console.log("tasktags ",obj)
   return {
     type:'ADD_TAGS_TASK',
+    payload:obj
+  }
+
+
+}
+
+
+//delete task tags
+
+export function delete_tags_task(projectname,taskid,tasktags){
+
+   var obj = {projectname:projectname,taskid:taskid,tasktags:tasktags};
+   console.log("delete tags  ",obj)
+  return {
+    type:'DELETE_TAGS_TASK',
     payload:obj
   }
 

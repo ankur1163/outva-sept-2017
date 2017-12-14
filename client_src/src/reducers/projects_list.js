@@ -103,13 +103,13 @@ export default function (state={},action){
 
 
   if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='CHANGE_PRIORITY_TASKS'){
-    console.log("entered inside change priority ")
+
     var projectname = yourVariable.projectname;
     var priority = yourVariable.priority
 
     taskid = yourVariable.taskid;
     for(var i =0;i<copystate.chatrooms.length;i++){
-      console.log("in for loop")
+
         if(copystate.chatrooms[i].name===projectname ){
 
           for(var j =0;j<copystate.chatrooms[i].tasks.length;j++){
@@ -117,14 +117,14 @@ export default function (state={},action){
               copystate.chatrooms[i].tasks[j].priority=priority;
             }
             else{
-              console.log("do nothing")
+
             }
           }
 
 
         }
         else{
-          console.log("no no ")
+
 
         }
     }
@@ -135,14 +135,14 @@ export default function (state={},action){
 
   if(yourVariable !== null && typeof yourVariable == 'object'&& yourVariable.hasOwnProperty("taskidtoselectforexpanding")){
     //{projectname:selectedroomname,taskidtoselectforexpanding:taskid}
-    console.log("entered expand task reducer")
+
     var roomname = yourVariable.projectname;
     var taskidtoselectforexpanding=yourVariable.taskidtoselectforexpanding
 
     if(copystate.chatrooms){
-      console.log("expand task id reducer")
+
       for(var i =0;i<copystate.chatrooms.length;i++){
-        console.log("in for loop")
+
           if(copystate.chatrooms[i].name===roomname ){
 
             if(copystate.chatrooms[i].expandtask===taskidtoselectforexpanding){
@@ -155,7 +155,7 @@ export default function (state={},action){
 
           }
           else{
-            console.log("no no ")
+
 
           }
       }
@@ -164,12 +164,12 @@ export default function (state={},action){
   }
 
   if(yourVariable !== null && typeof yourVariable == 'object'&& yourVariable.hasOwnProperty("whowilldotasktags")){
-    console.log("tags entered ")
+
 
     roomname = yourVariable.projectname;
     whoWillDoTags = yourVariable.tags;
     taskid = yourVariable.taskid;
-    console.log("projectname ",roomname,"tags",whoWillDoTags,"taskid",taskid)
+
     if(copystate.chatrooms){
       for(var i =0;i<copystate.chatrooms.length;i++){
           if(copystate.chatrooms[i].name===roomname){
@@ -187,12 +187,12 @@ export default function (state={},action){
   //change followers for tasks
 
   if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='CHANGE_FOLLOWER_TASK'){
-    console.log("reducer change follower")
+
 
     var projectname = yourVariable.projectname;
     var follower = yourVariable.follower;
     var taskid = yourVariable.taskid;
-    console.log("projectname ",projectname,"followers",follower,"taskid",taskid)
+
     if(copystate.chatrooms){
       for(var i =0;i<copystate.chatrooms.length;i++){
           if(copystate.chatrooms[i].name===roomname){
@@ -211,14 +211,14 @@ export default function (state={},action){
 
   if(yourVariable !== null && typeof yourVariable == 'object'&& yourVariable.hasOwnProperty("newtaskname")&& typeof yourVariable.newtaskname !== 'undefined'){
     //{projectname:selectedroomname,taskidtoselectforexpanding:taskid}
-    console.log("add new task")
+
     var roomname = yourVariable.projectname;
     var addnewtask=yourVariable.newtaskname;
-    console.log("addnewtask inside it ",addnewtask)
+
 
 
       for(var i =0;i<copystate.chatrooms.length;i++){
-        console.log("inside for ")
+
         var num = Math.floor(Math.random() * 1000000000);
           if(copystate.chatrooms[i].name===roomname){
             var obj = {
@@ -242,28 +242,28 @@ export default function (state={},action){
           }
       }
 
-     console.log("copystate",copystate)
+
   }
 
 
   //task done undone
 
   if(yourVariable !== null && typeof yourVariable == 'object'&& yourVariable.hasOwnProperty("taskiddoneundone")){
-    console.log("task done undone ")
+
 
     roomname = yourVariable.projectname;
 
     taskid = yourVariable.taskiddoneundone;
-    console.log("projectname ",roomname,"taskid",taskid)
+
 
       for(var i =0;i<copystate.chatrooms.length;i++){
 
           if(copystate.chatrooms[i].name===roomname){
-            console.log("second ")
+
              for(var j =0;j< copystate.chatrooms[i].tasks.length;j++){
-                 console.log("copystate.chatrooms[i].tasks[j].id",copystate.chatrooms[i].tasks[j].id,"taskid",taskid)
+
                   if(copystate.chatrooms[i].tasks[j].id===taskid){
-                    console.log("matched")
+
                     copystate.chatrooms[i].tasks[j].taskStatusLive=!copystate.chatrooms[i].tasks[j].taskStatusLive
                   }
              }
@@ -277,19 +277,19 @@ export default function (state={},action){
 //add task tags
 
 if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='ADD_TAGS_TASK'){
-  console.log("tadd task tags entered ")
+
 
   roomname = yourVariable.projectname;
 
   taskid = yourVariable.taskid;
   var tasktag =yourVariable.tasktags;
-  console.log("roomname ",roomname,"taskid ",taskid,"tasktag ",tasktag)
+
 
 
     for(var i =0;i<copystate.chatrooms.length;i++){
 
         if(copystate.chatrooms[i].name===roomname){
-          console.log("second ")
+
           if(copystate.chatrooms[i].tasktagssuggestions.indexOf(tasktag)===-1){
              copystate.chatrooms[i].tasktagssuggestions.push(tasktag)
 
@@ -297,15 +297,41 @@ if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='ADD_
 
 
            for(var j =0;j< copystate.chatrooms[i].tasks.length;j++){
-               console.log("copystate.chatrooms[i].tasks[j].id",copystate.chatrooms[i].tasks[j].id,"taskid",taskid)
+
                 if(copystate.chatrooms[i].tasks[j].id===taskid){
-                  console.log("matched")
+
+                  var tagfound;
+                      for(var g =0;g<copystate.chatrooms[i].tasks[j].tasktags.length;g++){
+                        if(copystate.chatrooms[i].tasks[j].tasktags[g].text===tasktag){
+                          tagfound=true;
+                        }
+                        else{
+                          tagfound = false
+                        }
+
+                      }
+                      if(!tagfound){
+                        var count;
+                         if(copystate.chatrooms[i].tasks[j].tasktags.length!==0){
+                           count = copystate.chatrooms[i].tasks[j].tasktags[copystate.chatrooms[i].tasks[j].tasktags.length-1].id;
+                           copystate.chatrooms[i].tasks[j].tasktags.push({
+                              id: count + 1,
+                              text: tasktag
+                          });
+                         }
+
+                       else{
+                         count =0;
+                         copystate.chatrooms[i].tasks[j].tasktags.push({
+                            id: count,
+                            text: tasktag
+                        });
+                       }
+
+                      }
 
 
-                  copystate.chatrooms[i].tasks[j].tasktags.push({
-                     id: copystate.chatrooms[i].tasks[j].tasktags.length + 1,
-                     text: tasktag
-                 });
+
                 }
            }
         }
@@ -314,6 +340,55 @@ if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='ADD_
 
 }
 
+//delete the tags in task
+if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='DELETE_TAGS_TASK'){
+
+
+  roomname = yourVariable.projectname;
+
+  taskid = yourVariable.taskid;
+  var tasktagid =yourVariable.tasktags;
+
+
+
+    for(var i =0;i<copystate.chatrooms.length;i++){
+
+        if(copystate.chatrooms[i].name===roomname){
+
+
+
+
+           for(var j =0;j< copystate.chatrooms[i].tasks.length;j++){
+
+                if(copystate.chatrooms[i].tasks[j].id===taskid){
+
+
+                   for(var k=0;k<copystate.chatrooms[i].tasks[j].tasktags.length;k++){
+                      if(copystate.chatrooms[i].tasks[j].tasktags[k].id===tasktagid){
+
+
+                        console.log("copystate.chatrooms[i].tasks[j].tasktags[k].id",copystate.chatrooms[i].tasks[j].tasktags[k].id)
+                        console.log("tags before splice",copystate.chatrooms[i].tasks[j].tasktags)
+                        copystate.chatrooms[i].tasks[j].tasktags.splice(k,1)
+                        console.log("tags after splice",copystate.chatrooms[i].tasks[j].tasktags)
+                      }
+                   }
+                   var id =0;
+
+                   for(var k=0;k<copystate.chatrooms[i].tasks[j].tasktags.length;k++){
+                      copystate.chatrooms[i].tasks[j].tasktags[k].id=id;
+                      id++
+                   }
+
+
+
+                }
+           }
+        }
+    }
+
+
+}
   var tg = action.payload;
   switch(action.type){
     case 'FETCH_PROJECT_LIST':
@@ -327,7 +402,7 @@ if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='ADD_
         ]
      }
      case 'ADD_SELECTED_ROOM':
-        console.log("this is great",action)
+
        return {
          ...state,
             selectedroom:action.payload
@@ -349,7 +424,8 @@ if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='ADD_
 
          case 'CHANGE_PRIORITY_TASKS':
              return copystate
-
+         case 'DELETE_TAGS_TASK':
+               return copystate
          default:
       return state;
   }

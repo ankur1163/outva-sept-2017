@@ -15,6 +15,7 @@ import 'react-tag-input/example/reactTags.css';
 import {Tasks_add_Who_Will_Do_This_Task} from './actions/index.js';
 import {add_expand_task_number} from './actions/index.js';
 import {add_new_task} from './actions/index.js';
+import {delete_tags_task} from './actions/index.js';
 
 import {add_tags_task} from './actions/index.js';
 import {task_done_undone} from './actions/index.js';
@@ -31,8 +32,7 @@ class Todosingle extends Component {
   constructor(props){
     super(props);
 
-       this.handleDelete = this.handleDelete.bind(this);
-       this.handleAddition = this.handleAddition.bind(this);
+
        this.handleDrag = this.handleDrag.bind(this);
     this.state={
               addtaskbutton:false,taskname:"",
@@ -40,22 +40,22 @@ class Todosingle extends Component {
 
               suggestions: ["mango", "pineapple", "orange", "pear"]
     }
-      this.handleDelete = this.handleDelete.bind(this);
-       this.handleAddition = this.handleAddition.bind(this);
+
        this.handleDrag = this.handleDrag.bind(this);
 
 
   }
 
-  handleDelete(i) {
-     let tags = this.state.tags;
-     tags.splice(i, 1);
-     this.setState({tags: tags});
+  handleDelete(selectedroomname,itemid,tags) {
+
+
+    //here tags contain only the id, no actual tag
+     this.props.delete_tags_task(selectedroomname,itemid,tags)
  }
 
  handleAddition(selectedroomname,itemid,tags) {
 
-   console.log("tags ",tags,"selectedroomname",selectedroomname,"itemid",itemid)
+
    this.props.add_tags_task(selectedroomname,itemid,tags)
 
 
@@ -87,9 +87,7 @@ class Todosingle extends Component {
    */
 
   expandtaskfunc(selectedroomname,taskid){
-    console.log("amazing")
-    console.log("selectedroomname",selectedroomname,"taskid",taskid)
-    console.log("clicked task",selectedroomname,taskid)
+
 
     this.props.add_expand_task_number(selectedroomname,taskid);
 
@@ -98,11 +96,11 @@ class Todosingle extends Component {
   }
    onDrop(acceptedFiles, rejectedFiles) {
   // do stuff with files...
-  console.log("files dropped")
+
 }
 
 uploadFile(files){
-  console.log("upload files function")
+
 
 }
 /*
@@ -116,10 +114,7 @@ uploadFile(files){
 
   onChangeDoer(event,data, nameid){
 
-    console.log("data.value",data.value)
-    console.log("this.props.selectedroom.name",this.props.selectedroom.name)
-    console.log("event",event)
-    console.log("id is coming ", nameid)
+
     var projectname = this.props.selectedroom.name;
     var taskid = nameid;
 
@@ -130,11 +125,7 @@ uploadFile(files){
   }
 
   onChangeFollower(event,data, nameid){
-    console.log("on change follower function ")
-    console.log("data.value",data.value)
-    console.log("this.props.selectedroom.name",this.props.selectedroom.name)
-    console.log("event",event)
-    console.log("id is coming ", nameid)
+
     var projectname = this.props.selectedroom.name;
     var taskid = nameid;
 
@@ -145,15 +136,15 @@ uploadFile(files){
   }
 
   taskCheckbox(projectname,taskid){
-    console.log("projectname ",projectname,"taskid",taskid)
+
    this.props.task_done_undone(projectname,taskid)
 
   }
 
   addtaskfunc(projectname,taskname){
-    console.log("this.state.addtaskbutton",this.state.addtaskbutton)
+
     this.setState({addtaskbutton:!this.state.addtaskbutton})
-    console.log("add task func",projectname,taskname)
+
 
       if(this.state.taskname!==""){
         this.props.add_new_task(projectname,taskname)
@@ -194,7 +185,7 @@ uploadFile(files){
   }
 */
   handlePriority(selectedroomname,taskid,priority){
-    console.log("handle priority")
+
      this.props.change_priority_tasks(selectedroomname,taskid,priority)
 
 
@@ -203,8 +194,7 @@ onChange = date => this.setState({ date })
 
 
   render() {
-    console.log("this.state.tags",this.state.tags)
-             console.log("this.props",this.props)
+
              //this is for task tags
 
 
@@ -212,7 +202,7 @@ onChange = date => this.setState({ date })
 
             var expandtask = this.props.selectedroom.expandtask;
             var taskCheckbox = this.taskCheckbox.bind(this);
-            console.log("expandtask ",expandtask)
+
             var expandtaskfunc = this.expandtaskfunc.bind(this);
 
             var tasktags = this.props.selectedroom.tags;
@@ -221,10 +211,7 @@ onChange = date => this.setState({ date })
             //related to tags
             var tasktags = this.state.tags;
 
-            var tagstodisplay = this.state.tags.map(function(item){
-              console.log("item is ",item.text)
-              return <li>{item.text}</li>
-            })
+
 
            var selectedroomname = this.props.selectedroom.name;
             var handleDelete = this.handleDelete.bind(this)
@@ -246,8 +233,7 @@ onChange = date => this.setState({ date })
             //var handleTaskTags=this.handleTaskTags.bind(this);
             var addtaskfunc = this.addtaskfunc.bind(this);
            var tr = this.props.selectedroom.tasks.map((item,index)=>{
-             console.log("this in this",this)
-             console.log("item.id",item.id)
+
                    var startdate = item.startdate;
                    var enddate = item.enddate;
                    var description =item.description;
@@ -354,10 +340,10 @@ onChange = date => this.setState({ date })
                    <TabPanel>
                    <div style={{height:"209px",width:"75%"}}>
                      <p>Please input your tags</p>
-                     {tagstodisplay}
+
                      <ReactTags tags={item.tasktags}
                      suggestions={tasktagsuggestionsprops}
-                     handleDelete={handleDelete}
+                     handleDelete={this.handleDelete.bind(this,selectedroomname,item.id)}
                      handleAddition={this.handleAddition.bind(this,selectedroomname,item.id)}
                      handleDrag={handleDrag} />
                      </div>
@@ -419,7 +405,7 @@ function mapStateToProps(state){
   }
 }
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({change_follower_Task,change_priority_tasks,task_done_undone,add_tags_task,add_new_task,fetchprojectlist,
+    return bindActionCreators({change_follower_Task,delete_tags_task,change_priority_tasks,task_done_undone,add_tags_task,add_new_task,fetchprojectlist,
       Tasks_add_Who_Will_Do_This_Task,add_expand_task_number},dispatch)
 }
 
