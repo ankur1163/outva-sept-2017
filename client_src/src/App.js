@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 
-import { BrowserRouter, Route,Router, Link } from 'react-router-dom'
+import { BrowserRouter, Route,Router, Link ,Redirect} from 'react-router-dom'
 import Apphome from './Apphome.js'
 import Contacts from './Contacts'
 import Mytodo from './Mytodo';
@@ -36,7 +36,7 @@ class App extends Component {
   render() {
 
     console.log("auth",auth)
-    
+    console.log("authentication is ",auth.isAuthenticated())
 
     return (
 
@@ -45,7 +45,16 @@ class App extends Component {
 
 
             <Route path="/login" render={(props) => <Login auth={auth} {...props} />} />
-            <Route path="/apphome" render={(props) => <Apphome auth={auth} {...props} />} />
+
+            <Route path="/apphome" render={(props) => (
+              !auth.isAuthenticated() ? (
+                <Redirect to="/login"/>
+
+
+              ) : (
+                <Apphome auth={auth} {...props} />
+              )
+            )} />
             <Route path="/contacts" exact component ={Contacts} />
             <Route path="/mytodo" exact component ={Mytodo} />
             <Route path="/favorites" exact component ={Favorites} />
