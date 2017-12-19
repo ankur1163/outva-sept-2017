@@ -1,0 +1,45 @@
+{
+  "name": "projects",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "saved": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "selectedroom": {
+      "type": "string"
+    },
+    "setcolor": {
+      "type": "boolean",
+      "default": false
+    },
+    "hours": {
+      "type": "number"
+    },
+    "searchterm": {
+      "type": "string"
+    },
+    "dropdownvalue": {
+      "type": "number",
+      "default": 1
+    },
+    "dropdownvaluetwo": {
+      "type": "number",
+      "default": 1
+    },
+    "chatrooms": {
+      "type": [
+        "any"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

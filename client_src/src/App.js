@@ -22,11 +22,17 @@ import history from './history';
 const auth = new Auth();
 
 const handleAuthentication = (nextState, replace) => {
+  console.log("inside handle authentication")
   if (/access_token|id_token|error/.test(nextState.location.hash)) {
     auth.handleAuthentication();
   }
 }
 
+const getprofile = () => {
+   console.log("entered get profile function")
+    auth.getProfile();
+
+}
 
 class App extends Component {
 
@@ -38,6 +44,8 @@ class App extends Component {
     console.log("auth",auth)
     console.log("authentication is ",auth.isAuthenticated())
 
+
+
     return (
 
       <Router history={history} component={App}>
@@ -45,16 +53,23 @@ class App extends Component {
 
 
             <Route path="/login" render={(props) => <Login auth={auth} {...props} />} />
+            <Route path="/apphome" exact component={(props) => {
 
-            <Route path="/apphome" render={(props) => (
-              !auth.isAuthenticated() ? (
-                <Redirect to="/login"/>
+            handleAuthentication(props);
+               
+                  return !auth.isAuthenticated() ? (
+                    <Redirect to="/login"/>
+                  ) : (
+                    <Apphome auth={auth} {...props} />
+                  )
+                }} />
 
 
-              ) : (
-                <Apphome auth={auth} {...props} />
-              )
-            )} />
+
+
+
+
+
             <Route path="/contacts" exact component ={Contacts} />
             <Route path="/mytodo" exact component ={Mytodo} />
             <Route path="/favorites" exact component ={Favorites} />

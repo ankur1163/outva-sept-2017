@@ -249,7 +249,25 @@ Meetups.successcredithours = function(payerid,paymentid, cb) {
 
 
 };
+/*
+saved:boolean
+key:isInteger
+tasktagssuggestions:Array
+color:boolean
+name:string
+notepad:string
+text:string
+messages:Array
+expandtask:integer
+membersofproject:Array
+tasks:Array
 
+
+
+
+
+
+*/
 
 Meetups.remoteMethod('successcredithours', {
     accepts: [{ arg: 'payerid', type: 'string',required:true },{ arg: 'paymentid', type: 'string',required:true }],

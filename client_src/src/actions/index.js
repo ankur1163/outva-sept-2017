@@ -2,12 +2,17 @@ import axios from 'axios';
 const API_KEY = 'a21891776b9486374eb67cad13e50d0c';
 export const FETCH_WEATHER = 'FETCH_WEATHER';
 
-const req = {selectedroom:"",setcolor:false,hours:2,searchterm:"",
-selectedroom:null,
+const req = {
+  selectedroom:"",
+  setcolor:false,
+  hours:2,
+  searchterm:"",
+
 dropdownvalue:1,
 dropdownvaluetwo:1,
 chatrooms:[
            {
+             saved:true,
              key:1,
 
              tasktagssuggestions:["mango", "pineapple", "orange", "pear"],

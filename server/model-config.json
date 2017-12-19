@@ -38,5 +38,9 @@
   "meetups": {
     "dataSource": "db",
     "public": true
+  },
+  "projects": {
+    "dataSource": "db",
+    "public": true
   }
 }
