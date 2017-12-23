@@ -20,8 +20,7 @@ class Success extends Component {
   componentWillMount(){
     var paymentid = this.getParameterByName("paymentId");
     var payerid =this.getParameterByName("PayerID")
-    console.log("paymentid is ",paymentid);
-    console.log("payer id ",payerid)
+
 
 
     axios.post('http://localhost:3000/api/meetups/successcredithours', {
@@ -30,12 +29,12 @@ class Success extends Component {
 
    })
    .then(function (response) {
-     console.log("response back",response.data.pay);
+
      var url = response.data.pay;
      window.open(response.data.pay,"_self")
    })
    .catch(function (error) {
-     console.log(error);
+
    });
   }
 

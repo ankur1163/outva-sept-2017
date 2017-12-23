@@ -47,9 +47,21 @@
       ]
     }
   },
-  "files": {},
+  "files": {
+    "loopback#static": [
+      {
+        "params": "$!../client/dist"
+      },
+      {
+        "paths": "/*",
+        "params": "$!../client/dist/index.html",
+        "optional": true
+      }
+    ]
+  },
   "final": {
-    "loopback#urlNotFound": {}
+    "loopback#urlNotFound": {},
+    "./LoopbackUrlNotFoundCatch.js": {}
   },
   "final:after": {
     "strong-error-handler": {}

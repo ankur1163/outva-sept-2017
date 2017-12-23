@@ -8,6 +8,16 @@ var paypal  = require('paypal-rest-sdk')
 
 var app = module.exports = loopback();
 
+//middleware.json code to show react files
+/*
+"files" : {
+  "loopback#static": {
+    "params":"$!../client"
+  }
+},
+*/
+//end
+
 //code for body parsing
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded

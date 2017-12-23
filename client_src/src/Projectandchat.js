@@ -27,14 +27,35 @@ class Projectandchatsection extends Component {
   constructor(props) {
     super(props);
 
-    this.state={searchterm:"",dropdownvalue:1,dropdownvaluetwo:1,term:""}
+    this.state={username:"",searchterm:"",dropdownvalue:1,dropdownvaluetwo:1,term:""}
 
   }
 
-  componentWillMount(){
-    this.props.fetchprojectlist();
+  componentDidMount(){
+    console.log(">>>>>>>>>>>>>>")
+
+    var username = localStorage.getItem("name")
+    console.log("localstorage username ",localStorage.getItem("name"))
+    console.log("username in component ",username)
+    var thy = this.props.fetchprojectlist(username);
+    setTimeout(function(){ console.log("after 3 ") }, 3000);
+    setTimeout(this.firstapicall(), 10000);
+    setTimeout(()=>{ var username = localStorage.getItem("name");
+    this.props.fetchprojectlist(username);console.log("after 6 ") }, 6000);
+    setTimeout(function(){ console.log("after 15 ") }, 15000);
+    this.props.fetchprojectlist(username);
+    this.setState({username})
 
   }
+
+  firstapicall(){
+    var username = localStorage.getItem("name");
+    console.log("after 5 seconds username",username);
+    this.props.fetchprojectlist(username);
+
+  }
+
+
 
   projectclick(){
 
@@ -49,12 +70,11 @@ class Projectandchatsection extends Component {
   }
   projectboxclicked(e){
 
-    console.log("e.target.getAttribute('name')",e.target.getAttribute('name'))
 
     this.props.addSelectedRoom(e.target.getAttribute('name'))
   }
   addnewproject(e){
-   console.log("add new project",this.state.term)
+
 
     if(this.state.term!==""){
       this.props.addProjectName(this.state.term);
@@ -85,9 +105,7 @@ class Projectandchatsection extends Component {
       })
     }
 
-    console.log("lr ",lr)
-    console.log("this.props.selectedroom",this.props.selectedroom);
-    console.log("this.props",this.props);
+
 
 
 
@@ -97,7 +115,7 @@ class Projectandchatsection extends Component {
                 <div>
                     <div className="topprojectbar">
                           <div>
-                          {console.log("entered")}
+
                               <MuiThemeProvider>
                                 <TextField type ="text" style ={{width:"50px"}} value ={this.state.searchterm} onChange ={(e) =>this.setState({searchterm:e.target.value})}/>
                               </MuiThemeProvider>
@@ -129,7 +147,8 @@ class Projectandchatsection extends Component {
                        <button onClick={addnewproject}> add</button>
 
 
-                       {this.props.projectlist && this.props.projectlist.chatrooms && this.props.projectlist.chatrooms[0] && this.props.projectlist.chatrooms[0].name &&
+                       {this.props.projectlist && this.props.projectlist.chatrooms &&
+                         this.props.projectlist.chatrooms[0] && this.props.projectlist.chatrooms[0].name &&
 
                           lr
                           }
@@ -155,11 +174,11 @@ function mapStateToProps(state){
 
   const projectlist=state.projectlist;
   const selectedroom = state.projectlist.selectedroom;
-  console.log("state.projectlist.selectedroom ",state.projectlist.selectedroom)
+
 
   if(state.projectlist.chatrooms && state.projectlist.chatrooms[0] != null){
 
-    console.log("correct entered")
+
     for(var i =0;i<state.projectlist.chatrooms.length;i++){
 
          if(state.projectlist.chatrooms[i].name===selectedroom){
@@ -182,7 +201,7 @@ function mapStateToProps(state){
   }
 
   else{
-    console.log("wron entered")
+
        selectedroom:null
   }
 }

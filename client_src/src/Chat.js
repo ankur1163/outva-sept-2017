@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {addSelectedRoom} from './actions/index.js';
 import {addEditorText} from './actions/index.js';
+import {SaveData} from './actions/index.js';
 
 
 import ReactQuill from 'react-quill';
@@ -133,6 +134,18 @@ class Chat extends Component {
 
    }
 
+   savenotepad(){
+     console.log("button clicked in save notepad");
+
+     var id = this.props.allrooms.id;
+     var oldstate = this.props.allrooms;
+     console.log("id is ",id)
+     console.log("oldstate ",oldstate)
+     console.log("this.props.allrooms",this.props.allrooms)
+     this.props.SaveData(id,oldstate)
+
+   }
+
    afterPaste(evt){
 
    }
@@ -183,6 +196,7 @@ class Chat extends Component {
     var onChange = this.onChange.bind(this);
     var onBlur = this.onBlur.bind(this);
     var afterPaste = this.afterPaste.bind(this);
+    var save = this.savenotepad.bind(this);
 
     return (
       <div className="nestedchat">
@@ -203,8 +217,8 @@ class Chat extends Component {
             ? <Todosingle/>: null}
             {this.props.selectedroom  && this.state.selectoption==="Notepad" && this.state.selectoption!=="chat" &&
             this.state.selectoption!=="To do"
-             ?   <ReactQuill value={this.props.selectedroom.text}
-                  onChange={handlequillChange} />  : null}
+             ?   <div><ReactQuill value={this.props.selectedroom.text}
+                  onChange={handlequillChange} /> <button onClick={save}>Save</button> </div>: null}
 
 
 
@@ -253,7 +267,7 @@ function mapStateToProps(state){
 
 }
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({addSelectedRoom,addEditorText},dispatch)
+    return bindActionCreators({addSelectedRoom,addEditorText,SaveData},dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Chat)

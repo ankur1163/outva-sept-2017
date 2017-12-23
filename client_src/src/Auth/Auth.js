@@ -2,6 +2,7 @@ import history from '../history';
 import auth0 from 'auth0-js';
 
 
+
 export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'app1163.auth0.com',
@@ -26,8 +27,7 @@ export default class Auth {
 
   getAccessToken() {
       const accessToken = localStorage.getItem('access_token');
-      console.log("access token from ",localStorage.getItem('access_token'))
-      console.log("acces token is ",accessToken)
+
       if (!accessToken) {
         throw new Error('No access token found');
       }
@@ -39,7 +39,7 @@ export default class Auth {
     }
   getProfile(cb) {
   //let accessToken = localStorage.getItem("accessToken");;
-  console.log("inside getprofile")
+
   let accessToken = this.getAccessToken();
 
   this.auth0.client.userInfo(accessToken, (err, profile) => {
@@ -48,11 +48,13 @@ export default class Auth {
       localStorage.setItem('name', profile.name);
       localStorage.setItem('picture', profile.picture);
       localStorage.setItem('updated_at', profile.updated_at);
-      console.log("profile is ",profile)
+
       this.userProfile = profile;
+      var username = localStorage.getItem("name");
+
     }
     //cb(err, profile);
-    console.log("err is ",err)
+
   });
 }
 
@@ -63,24 +65,23 @@ export default class Auth {
         history.replace('/apphome');
       } else if (err) {
         history.replace('/apphome');
-        console.log(err);
+
         alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
   }
 
   setSession(authResult) {
-    console.log("enetred in setsession ")
+
 
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    console.log("entered in session")
+
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
 
     localStorage.setItem('expires_at', expiresAt);
-    console.log("access_token",authResult.accessToken,"id_token",authResult.idToken,"expires_at",expiresAt)
-    console.log("access token from ",localStorage.getItem('access_token'))
+
     // navigate to the home route
     history.replace('/apphome');
     this.getProfile()
@@ -99,7 +100,7 @@ export default class Auth {
     // Check whether the current time is past the
     // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    console.log("expires at ",expiresAt,new Date().getTime() < expiresAt)
+
     return new Date().getTime() < expiresAt;
   }
 }

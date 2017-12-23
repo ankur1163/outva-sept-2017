@@ -18,18 +18,18 @@ class Buy extends Component {
     this.state={hours:2}
   }
  handlePay(){
-   console.log("handle pay clicked");
+
    var pay = this.state.hours*7;
    axios.post('http://localhost:3000/api/meetups/pay', {
    cost:pay
   })
   .then(function (response) {
-    console.log("response back",response.data.pay);
+
     var url = response.data.pay;
     window.open(response.data.pay,"_self")
   })
   .catch(function (error) {
-    console.log(error);
+    
   });
  }
 

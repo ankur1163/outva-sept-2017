@@ -367,10 +367,9 @@ if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='DELE
                       if(copystate.chatrooms[i].tasks[j].tasktags[k].id===tasktagid){
 
 
-                        console.log("copystate.chatrooms[i].tasks[j].tasktags[k].id",copystate.chatrooms[i].tasks[j].tasktags[k].id)
-                        console.log("tags before splice",copystate.chatrooms[i].tasks[j].tasktags)
+
                         copystate.chatrooms[i].tasks[j].tasktags.splice(k,1)
-                        console.log("tags after splice",copystate.chatrooms[i].tasks[j].tasktags)
+
                       }
                    }
                    var id =0;
@@ -390,9 +389,16 @@ if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='DELE
 
 }
   var tg = action.payload;
+
+  if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='FETCH_PROJECT_LIST'){
+    console.log("from server ",tg)
+    console.log("tg.data",tg.data)
+  }
   switch(action.type){
+    case 'SAVE_DATA':
+        return tg.data[0]
     case 'FETCH_PROJECT_LIST':
-       return tg
+       return tg.data[0]
        case 'ADD_PROJECT_NAME':
      return {
         ...state, // make a copy of the current state

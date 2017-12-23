@@ -80,7 +80,7 @@ class Projectsnew extends Component {
   }
 
   render() {
-    console.log("this.props.room",this.props)
+
     var tg= this.props.room
     var handleColor = this.handleColor.bind(this);
 

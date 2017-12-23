@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {fetchWeather} from './actions/index.js'
+import axios from 'axios'
 
 //import moxtra from './moxtra-logo.png'
 
@@ -25,14 +26,19 @@ class Sidebar extends Component {
 
      this.props.fetchWeather()
    }
+   clicked(){
+     console.log("it clicked")
+
+   }
 
   render() {
     var buttonclicked= this.buttonclicked.bind(this);
     var td =  "megha";
-
+   var clicked = this.clicked.bind(this);
 
     return (
       <div className="wrappersidebar">
+      <button onClick={clicked}>Get</button>
          <div >
           <img  width="144px" src="https://p13.zdassets.com/hc/settings_assets/1174603/200346447/6auSHeGEOYcjY1cw8CPSHA-moxtra-logo.png" alt="logo" />
 
