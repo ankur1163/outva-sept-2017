@@ -62,7 +62,7 @@ module.exports = function(Meetups,pusher) {
         }
       );
 
-
+// this is what pusher use to send message 
     Meetups.pusher = function(username,text,time,cb) {
       var response;
             var pushertwo = new pusherone({

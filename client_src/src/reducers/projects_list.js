@@ -389,6 +389,24 @@ if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='DELE
 
 }
   var tg = action.payload;
+  var newobject
+
+  if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='MESSAGE_ARRIVED'){
+    console.log("from server ",tg)
+
+    newobject = state;
+
+    var newmessage = {
+      "type":0,
+      "image":"https://i2.wp.com/charlottelifeandhome.com/wp-content/uploads/2015/06/Headshot-round.png",
+      "text":tg.text,
+      "date":tg.date
+    }
+    newobject.chatrooms[1].messages.push(newmessage)
+
+
+
+  }
 
   if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='FETCH_PROJECT_LIST'){
     console.log("from server ",tg)
@@ -397,6 +415,8 @@ if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='DELE
   switch(action.type){
     case 'SAVE_DATA':
         return tg.data[0]
+    case 'MESSAGE_ARRIVED':
+         return newobject
     case 'FETCH_PROJECT_LIST':
        return tg.data[0]
        case 'ADD_PROJECT_NAME':
@@ -419,6 +439,9 @@ if(yourVariable !== null && typeof yourVariable == 'object'&& actiontype==='DELE
 
        case 'TASKS_ADD_WHO_WILL_DO_THIS_TASK':
 
+         return copystate
+
+      case 'CREATE_NEW_USER_DATA':
          return copystate
       case 'ADD_EXPAND_TASK_NUMBER':
          return copystate

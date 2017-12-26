@@ -6,6 +6,8 @@ import {fetchWeather} from './actions/index.js'
 import {addProjectName} from './actions/index.js'
 import {addSelectedRoom} from './actions/index.js'
 import CKEditor from "react-ckeditor-component";
+import {createnewuserdata} from './actions/index.js'
+import axios from 'axios';
 
 
 
@@ -34,16 +36,37 @@ class Projectandchatsection extends Component {
   componentDidMount(){
     console.log(">>>>>>>>>>>>>>")
 
+
+
     var username = localStorage.getItem("name")
     console.log("localstorage username ",localStorage.getItem("name"))
     console.log("username in component ",username)
     var thy = this.props.fetchprojectlist(username);
     setTimeout(function(){ console.log("after 3 ") }, 3000);
-    setTimeout(this.firstapicall(), 10000);
-    setTimeout(()=>{ var username = localStorage.getItem("name");
-    this.props.fetchprojectlist(username);console.log("after 6 ") }, 6000);
-    setTimeout(function(){ console.log("after 15 ") }, 15000);
-    this.props.fetchprojectlist(username);
+    var firstapicall = this.firstapicall.bind(this);
+    setTimeout(()=>{
+      var username = localStorage.getItem("name");
+
+      const url = "http://localhost:3000/api/projects/findOne?filter[where][user]="+username
+
+
+        var th = axios.get(url)
+             .then(function (response) {
+               console.log("returned positive get projects")
+               this.props.fetchprojectlist(username);
+               console.log("after 6 ");
+             })
+             .catch(function (error) {
+               console.log(error);
+               console.log("user not found")
+               firstapicall();
+
+             });
+
+
+    }, 6000);
+
+
     this.setState({username})
 
   }
@@ -51,7 +74,8 @@ class Projectandchatsection extends Component {
   firstapicall(){
     var username = localStorage.getItem("name");
     console.log("after 5 seconds username",username);
-    this.props.fetchprojectlist(username);
+    this.props.createnewuserdata(username);
+    setTimeout(()=>this.props.fetchprojectlist(username), 10000);
 
   }
 
@@ -206,7 +230,7 @@ function mapStateToProps(state){
   }
 }
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({fetchprojectlist,fetchWeather,addSelectedRoom,addProjectName},dispatch)
+    return bindActionCreators({fetchprojectlist,fetchWeather,addSelectedRoom,addProjectName,createnewuserdata},dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Projectandchatsection)

@@ -6,11 +6,14 @@ import axios from 'axios';
 import Pusher from 'pusher-js'
 import ChatBubble from 'react-chat-bubble';
 import Todosingle from './Todosingle';
+
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {addSelectedRoom} from './actions/index.js';
 import {addEditorText} from './actions/index.js';
 import {SaveData} from './actions/index.js';
+import {messageArrived} from './actions/index.js';
+
 
 
 import ReactQuill from 'react-quill';
@@ -167,13 +170,20 @@ class Chat extends Component {
    date: new Date()
   })
   .then(function (response) {
-
+     console.log("message arrived ",message)
   })
   .catch(function (error) {
 
   });
 
   this.chatRoom.bind('new_message', function(message){
+    console.log("message arrived ",message)
+    var text = message.text
+    var date = message.time
+    var username = message.username
+    var id = 1
+    //text date username id
+    this.props.messageArrived(text,date,username,id)
 
     message.image="https://i2.wp.com/charlottelifeandhome.com/wp-content/uploads/2015/06/Headshot-round.png"
 
@@ -204,6 +214,7 @@ class Chat extends Component {
            <button name="chat" onClick={selectoption}> chat </button>
            <button name="To do" onClick={selectoption}> To do </button>
            <button name="Notepad" onClick={selectoption}>Notepad</button>
+           <button name="Settings" onClick={selectoption}>Settings</button>
         </div>
 
           <div className="chatarea">
@@ -211,25 +222,37 @@ class Chat extends Component {
 
 
 
-          {this.props.selectedroom && this.state.selectoption==="chat" && this.state.selectoption!=="To do" && this.state.selectoption!=="Notepad"
+          {this.props.selectedroom && this.state.selectoption==="chat" && this.state.selectoption!=="To do" &&
+          this.state.selectoption!=="Settings" && this.state.selectoption!=="Notepad"
            ? <ChatBubble messages = {this.props.selectedroom.messages} /> : null}
-           {this.state.selectoption==="To do" && this.state.selectoption!=="chat" && this.state.selectoption!=="Notepad"
+           {this.state.selectoption==="To do" && this.state.selectoption!=="chat" &&
+           this.state.selectoption!=="Settings" && this.state.selectoption!=="Notepad"
             ? <Todosingle/>: null}
-            {this.props.selectedroom  && this.state.selectoption==="Notepad" && this.state.selectoption!=="chat" &&
+            {this.props.selectedroom  && this.state.selectoption==="Notepad" &&
+            this.state.selectoption!=="Settings" &&  this.state.selectoption!=="chat" &&
             this.state.selectoption!=="To do"
              ?   <div><ReactQuill value={this.props.selectedroom.text}
-                  onChange={handlequillChange} /> <button onClick={save}>Save</button> </div>: null}
+                  onChange={handlequillChange} /> <button onClick={save}>Save</button>
+                  </div>: null}
 
 
 
           </div>
-          {this.props.selectedroom && this.state.selectoption==="chat" && this.state.selectoption!=="To do" && this.state.selectoption!=="Notepad"
+          {this.props.selectedroom && this.state.selectoption==="chat" && this.state.selectoption!=="To do" &&
+          this.state.selectoption!=="Settings" && this.state.selectoption!=="Notepad"
            ?  <div>
              <p>username<input type="text" onChange={usch}/>
              message<input type="text" onChange={txch}/>
              <button onClick={sm}>click here</button></p>
 
             </div> : null}
+
+            {this.props.selectedroom && this.state.selectoption==="Settings" && this.state.selectoption!=="To do" &&
+            this.state.selectoption!=="chat" && this.state.selectoption!=="Notepad"
+             ?  <div>
+               <h2>this is great</h2>
+
+              </div> : null}
 
       </div>
     );
@@ -267,7 +290,7 @@ function mapStateToProps(state){
 
 }
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({addSelectedRoom,addEditorText,SaveData},dispatch)
+    return bindActionCreators({addSelectedRoom,addEditorText,SaveData,messageArrived},dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Chat)

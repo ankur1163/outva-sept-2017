@@ -8,7 +8,8 @@ const req = {
    "setcolor":false,
    "hours":2,
    "searchterm":"",
-   "user":"restlessankur@gmail.com",
+   "users":["restlessankur@gmail.com","ank2@gmail.com","ank3@gmail.com"],
+   "allmembers":["ank2@gmail.com","ank3@gmail.com"],
    "dropdownvalue":1,
    "dropdownvaluetwo":1,
    "chatrooms":[
@@ -1215,6 +1216,86 @@ export function fetchWeather(city){
   }
 }
 
+/*
+export function findmembers(city){
+   console.log("inside find members")
+  //const url = `http://api.openweathermap.org/data/2.5/forecast?appid=a21891776b9486374eb67cad13e50d0c&q=${city},us`;
+  //const request = axios.get(url);
+  const req = {name:"ankur"}
+  return {
+    type:FIND_MEMBERS,
+    payload:req
+  }
+}
+
+export function deleteproject(city){
+   console.log("inside delete project")
+  //const url = `http://api.openweathermap.org/data/2.5/forecast?appid=a21891776b9486374eb67cad13e50d0c&q=${city},us`;
+  //const request = axios.get(url);
+  const req = {name:"ankur"}
+  return {
+    type:DELETE_PROJECT,
+    payload:req
+  }
+}
+
+export function addnewmember(city){
+   console.log("inside add new member")
+  //const url = `http://api.openweathermap.org/data/2.5/forecast?appid=a21891776b9486374eb67cad13e50d0c&q=${city},us`;
+  //const request = axios.get(url);
+  const req = {name:"ankur"}
+  return {
+    type:ADD_NEW_MEMBER,
+    payload:req
+  }
+}
+*/
+export function createnewuserdata(username){
+
+  //const url = `http://api.openweathermap.org/data/2.5/forecast?appid=a21891776b9486374eb67cad13e50d0c&q=${city},us`;
+  //const request = axios.get(url);
+  req.user = username;
+  var statetosave
+  console.log("action create new user")
+  var tg = axios.post('http://localhost:3000/api/projects',req)
+  .then(function (response) {
+    console.log("yes created new user")
+    console.log("response is ",response)
+    statetosave = response
+  })
+  .catch(function (error) {
+    console.log("user not created")
+    console.log(error);
+  });
+
+  return {
+    type:"CREATE_NEW_USER_DATA",
+    payload:req
+  }
+}
+
+export function messageArrived(text,date,username,id){
+
+  var tg =   {
+       "text":text,
+       "date":date,
+       "username":username,
+       "id":id
+    }
+
+    console.log("inside action message arrived ",tg)
+
+  //const url = `http://api.openweathermap.org/data/2.5/forecast?appid=a21891776b9486374eb67cad13e50d0c&q=${city},us`;
+  //const request = axios.get(url);
+
+  return {
+    type:"MESSAGE_ARRIVED",
+    payload:tg
+  }
+}
+
+
+
 export function fetchprojectlist(username){
 
   //const url = `http://api.openweathermap.org/data/2.5/forecast?appid=a21891776b9486374eb67cad13e50d0c&q=${city},us`;
@@ -1280,11 +1361,9 @@ export function SaveData(id,oldstate){
   console.log("oldstate inside action",oldstate)
   var statetosave
 
-  var tg = axios.put('http://localhost:3000/api/projects', {
-    project: oldstate,
-    id: id
-  })
+  var tg = axios.put('http://localhost:3000/api/projects/'+id,oldstate)
   .then(function (response) {
+    console.log("response is ",response)
     statetosave = response
   })
   .catch(function (error) {

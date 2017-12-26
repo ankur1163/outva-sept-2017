@@ -8,6 +8,13 @@ var paypal  = require('paypal-rest-sdk')
 
 var app = module.exports = loopback();
 
+//explorer module code
+//var explorer = require('loopback-component-explorer');
+
+
+
+//
+
 //middleware.json code to show react files
 /*
 "files" : {
@@ -25,6 +32,15 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 //code for body parsing ends
 
+//explorer node module
+/*
+explorer(app, { basePath: '/api', mountPath: '/explorer' });
+app.use('/explorer', explorer.routes(app, { basePath: '/api' }));
+
+//console.log("Explorer mounted at localhost:" + port + "/explorer");
+
+*/
+//ends
 app.start = function() {
   // start the web server
   return app.listen(function() {

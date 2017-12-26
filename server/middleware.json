@@ -50,12 +50,15 @@
   "files": {
     "loopback#static": [
       {
-        "params": "$!../client/dist"
+        "name": "publicPath",
+      "paths": ["/"],
+      "params": "$!../client"
       },
       {
-        "paths": "/*",
-        "params": "$!../client/dist/index.html",
-        "optional": true
+        "name": "reactRouter",
+      "paths": ["*"],
+      "params": "$!../client/index.html",
+      "optional":true
       }
     ]
   },
